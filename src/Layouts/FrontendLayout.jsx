@@ -22,8 +22,8 @@ const FrontendLayout = () => {
                   </Link>
                 </li>
                 <li className='nav-item'>
-                  <Link className='nav-link' to='/product'>
-                    產品列表
+                  <Link className='nav-link' to='/tea'>
+                    茶
                   </Link>
                 </li>
                 <li className='nav-item'>

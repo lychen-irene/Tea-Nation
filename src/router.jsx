@@ -7,7 +7,7 @@ import AdminLayout from "./Layouts/AdminLayout";
 
 import Home from "./pages/front/Home";
 import About from "./pages/front/About";
-import Products from "./pages/front/Products";
+import Tea from "./pages/front/Tea";
 import SingleProduct from "./pages/front/SingleProduct";
 import Cart from "./pages/front/Cart";
 // Frontend pages
@@ -32,8 +32,8 @@ export const router = createHashRouter([
         element: <About />,
       },
       {
-        path: "product",
-        element: <Products />,
+        path: "tea",
+        element: <Tea />,
       },
       {
         path: "product/:id", // 動態參數
