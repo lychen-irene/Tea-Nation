@@ -1,0 +1,281 @@
+// ========================================
+// SEC5 — 1920 x 660
+// ========================================
+.sec5 {
+  width: 100%;
+  min-height: clamp(330px, 34.375vw, 660px);            // 660/1920
+  padding-top: clamp(50px, 5.208vw, 100px);              // 100/1920
+  padding-right: clamp(20px, 2.083vw, 40px);             // 40/1920
+  padding-bottom: clamp(50px, 5.208vw, 100px);           // 100/1920
+  padding-left: clamp(20px, 2.083vw, 40px);              // 40/1920
+  background: var(--color-secondary-500, #0B4134);
+  display: flex;
+  justify-content: center;
+
+  @media (max-width: 767.98px) {
+    padding: 40px 20px;
+    min-height: auto;
+  }
+
+  // ========================================
+  // Content — 1296 x 460
+  // 距離 indexWeb 左右各 312px
+  // ========================================
+  .sec5-content {
+    width: 100%;
+    max-width: clamp(648px, 67.5vw, 1296px);             // 1296/1920
+    min-height: clamp(230px, 23.958vw, 460px);            // 460/1920
+    display: flex;
+    gap: clamp(12px, 1.25vw, 24px);                       // 24/1920
+    align-items: flex-start;
+
+    @media (max-width: 767.98px) {
+      flex-direction: column;
+      min-height: auto;
+    }
+  }
+
+  // ========================================
+  // Title — 416 x 195，固定在 content 左上角
+  // ========================================
+  .sec5-title {
+    width: clamp(208px, 21.667vw, 416px);                 // 416/1920
+    min-width: clamp(208px, 21.667vw, 416px);
+    display: flex;
+    flex-direction: column;
+    gap: clamp(20px, 2.083vw, 40px);                      // 40/1920
+
+    @media (max-width: 767.98px) {
+      width: 100%;
+      min-width: unset;
+    }
+  }
+
+  // ========================================
+  // Top — 416 x 101
+  // ========================================
+  .sec5-top {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  // ========================================
+  // "品牌承諾" — 16px
+  // ========================================
+  .sec5-subtitle {
+    margin: 0;
+    font-family: 'Noto Sans TC', sans-serif;
+    font-weight: 400;
+    font-size: clamp(12px, 0.833vw, 16px);                // 16/1920
+    line-height: 150%;
+    letter-spacing: 0.04em;
+    color: var(--color-primary-200, #E0C184);
+    text-align: left;
+  }
+
+  // ========================================
+  // "Promise" — 64px
+  // ========================================
+  .sec5-heading {
+    margin: 0;
+    font-family: 'Hiragino Mincho ProN', 'Noto Serif TC', serif;
+    font-weight: 300;
+    font-size: clamp(32px, 3.333vw, 64px);                // 64/1920
+    line-height: 120%;
+    letter-spacing: 0.02em;
+    color: var(--color-neutral-0, #FFFFFF);
+    text-align: left;
+
+    @media (max-width: 767.98px) {
+      font-size: 36px;
+    }
+  }
+
+  // ========================================
+  // Down — 416 x 54
+  // 距離 top 下方 gap 40px（從 title top 算 141px）
+  // ========================================
+  .sec5-down {
+    width: 100%;
+
+    @media (max-width: 767.98px) {
+      padding-left: 91px;
+    }
+  }
+
+  .sec5-desc {
+    margin: 0;
+    font-family: 'Noto Serif TC', serif;
+    font-weight: 400;
+    font-size: clamp(14px, 0.938vw, 18px);                // 18/1920
+    line-height: 150%;
+    letter-spacing: 0.04em;
+    color: var(--color-neutral-0, #FFFFFF);
+    text-align: left;
+  }
+
+  // ========================================
+  // Right — 856 x 460
+  // 距離 content 左邊 440px（title 416 + gap 24）
+  // ========================================
+  .sec5-right {
+    flex: 1;
+    min-height: clamp(230px, 23.958vw, 460px);            // 460/1920
+    padding-top: clamp(32px, 3.333vw, 64px);              // 64/1920
+    display: flex;
+    gap: clamp(12px, 1.25vw, 24px);                       // 24/1920
+    align-items: flex-end;
+
+    // Mobile: 隱藏，由 carousel 取代
+    @media (max-width: 767.98px) {
+      display: none;
+    }
+  }
+
+  // ========================================
+  // Mobile Carousel — 取代 sec5-right
+  // ========================================
+  .sec5-carousel {
+    display: none;
+
+    @media (max-width: 767.98px) {
+      display: block;
+      width: 100%;
+    }
+
+    .carousel-inner {
+      overflow: visible;
+    }
+
+    .carousel-item {
+      padding: 0 4px;
+    }
+
+  }
+
+  // ========================================
+  // Promise Card — 269.33 x 396
+  // 三張等寬，向下靠齊
+  // ========================================
+  .promise-card {
+    flex: 1;
+    min-height: clamp(198px, 20.625vw, 396px);            // 396/1920
+    display: flex;
+    flex-direction: column;
+    gap: clamp(12px, 1.25vw, 24px);                       // 24/1920 (48 - 24 title = 24 gap)
+
+    @media (max-width: 767.98px) {
+      min-height: auto;
+    }
+  }
+
+  // ========================================
+  // Card Title — 16px，向上靠齊，前方圓點標記
+  // ========================================
+  .promise-card-title {
+    margin: 0;
+    font-family: 'Noto Sans TC', sans-serif;
+    font-weight: 400;
+    font-size: clamp(12px, 0.833vw, 16px);                // 16/1920
+    line-height: 150%;
+    letter-spacing: 0.04em;
+    color: var(--color-neutral-0, #FFFFFF);
+    display: flex;
+    align-items: center;
+    gap: clamp(4px, 0.417vw, 8px);                        // 8/1920
+
+    &::before {
+      content: '';
+      width: clamp(2px, 0.208vw, 4px);
+      height: clamp(2px, 0.208vw, 4px);
+      border-radius: 50%;
+      background: var(--color-neutral-0, #FFFFFF);
+      flex-shrink: 0;
+    }
+  }
+
+  // ========================================
+  // Promise Body — 圖片 + 評價
+  // img 距離 body 左 24px
+  // ========================================
+  .promise-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(12px, 1.25vw, 24px);                       // 24/1920
+    padding-left: clamp(12px, 1.25vw, 24px);              // 24/1920
+
+    @media (max-width: 767.98px) {
+      padding-left: 24px;
+    }
+  }
+
+  // ========================================
+  // Promise Img — 245.33 x 164
+  // ========================================
+  .promise-img {
+    width: 100%;
+    height: clamp(82px, 8.542vw, 164px);                  // 164/1920
+    object-fit: cover;
+    display: block;
+
+    @media (max-width: 767.98px) {
+      width: 245px;
+      height: 164px;
+    }
+  }
+
+  // ========================================
+  // Promise Body2 — 245.33 x 160
+  // 貼齊 body 右下
+  // ========================================
+  .promise-body2 {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(10px, 1.042vw, 20px);                      // 20/1920
+  }
+
+  // ========================================
+  // Body2 Title — 20px Bold
+  // ========================================
+  .promise-body2-title {
+    margin: 0;
+    font-family: 'Noto Serif TC', serif;
+    font-weight: 700;
+    font-size: clamp(10px, 1.042vw, 20px);                // 20/1920
+    line-height: 120%;
+    letter-spacing: 0.02em;
+    color: var(--color-neutral-0, #FFFFFF);
+    text-align: left;
+  }
+
+  // ========================================
+  // Body2 Subtitle — 16px，min-height 72px
+  // ========================================
+  .promise-body2-subtitle {
+    margin: 0;
+    min-height: clamp(36px, 3.75vw, 72px);                // 72/1920
+    font-family: 'Noto Sans TC', sans-serif;
+    font-weight: 400;
+    font-size: clamp(12px, 0.833vw, 16px);                // 16/1920
+    line-height: 150%;
+    letter-spacing: 0.04em;
+    color: var(--color-neutral-0, #FFFFFF);
+    text-align: left;
+  }
+
+  // ========================================
+  // Body2 Name — 16px，靠右對齊
+  // ========================================
+  .promise-body2-name {
+    margin: 0;
+    font-family: 'Noto Sans TC', sans-serif;
+    font-weight: 400;
+    font-size: clamp(12px, 0.833vw, 16px);                // 16/1920
+    line-height: 150%;
+    letter-spacing: 0.04em;
+    text-align: right;
+    color: var(--color-neutral-0, #FFFFFF);
+  }
+}

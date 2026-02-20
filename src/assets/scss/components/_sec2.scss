@@ -1,0 +1,254 @@
+// ========================================
+// SEC2 — 1920 x 907
+// ========================================
+.sec2 {
+  width: 100%;
+  min-height: clamp(453.5px, 47.24vw, 907px);          // 907/1920
+  padding-top: clamp(50px, 5.208vw, 100px);             // 100/1920
+  padding-bottom: clamp(50px, 5.208vw, 100px);          // 100/1920
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  @media (max-width: 767.98px) {
+    padding: 40px 0;
+    min-height: auto;
+  }
+
+  // ========================================
+  // Content — 1920 x 707
+  // ========================================
+  .sec2-content {
+    width: 100%;
+    min-height: clamp(353.5px, 36.823vw, 707px);        // 707/1920
+    display: flex;
+    align-items: stretch;
+
+    @media (max-width: 767.98px) {
+      flex-direction: column;
+      min-height: auto;
+    }
+  }
+
+  // ========================================
+  // Left — 838 x 707 (圖片 + title 疊加)
+  // ========================================
+  .sec2-left {
+    width: clamp(419px, 43.646vw, 838px);               // 838/1920
+    min-width: clamp(419px, 43.646vw, 838px);
+    position: relative;
+    overflow: hidden;
+
+    > img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+    }
+
+    @media (max-width: 767.98px) {
+      width: 100%;
+      min-width: unset;
+      aspect-ratio: 4 / 3;
+    }
+  }
+
+  // ========================================
+  // Title — 120 x 490
+  // 絕對定位於 left 內，左邊距 42.84%，垂直置中
+  // ========================================
+  .sec2-title {
+    position: absolute;
+    left: 42.84%;       // 359/838
+    top: 50%;
+    transform: translateY(-50%);
+    width: clamp(60px, 6.25vw, 120px);                  // 120/1920
+    height: clamp(245px, 25.521vw, 490px);              // 490/1920
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: clamp(40px, 4.167vw, 80px);                    // 80/1920
+  }
+
+  // ========================================
+  // 文字 — "懂茶，是為了更懂生活"
+  // 24 x 290，垂直書寫
+  // ========================================
+  .sec2-text {
+    width: clamp(12px, 1.25vw, 24px);                   // 24/1920
+    height: clamp(145px, 15.104vw, 290px);              // 290/1920
+    margin: 0;
+    font-family: 'Noto Serif TC', serif;
+    font-weight: 700;
+    font-size: clamp(12px, 1.25vw, 24px);               // 24/1920
+    line-height: 120%;
+    letter-spacing: 0.02em;
+    text-align: center;
+    color: var(--color-neutral-0, #FFFFFF);
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+  }
+
+  // ========================================
+  // Icon Button — 120 x 120
+  // ========================================
+  .sec2-icon-button {
+    width: clamp(60px, 6.25vw, 120px);                  // 120/1920
+    height: clamp(60px, 6.25vw, 120px);                 // 120/1920
+    border-radius: 1000px;
+    border: 1px solid var(--color-neutral-0, #FFFFFF);
+    background: transparent;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+
+    img {
+      width: clamp(12px, 1.25vw, 24px);                 // 24/1920
+      height: clamp(12px, 1.25vw, 24px);                // 24/1920
+      filter: brightness(0) invert(1);
+    }
+  }
+
+  // ========================================
+  // Right — 1082 x 707
+  // ========================================
+  .sec2-right {
+    flex: 1;
+    min-height: clamp(353.5px, 36.823vw, 707px);        // 707/1920
+    padding-left: clamp(40px, 4.167vw, 80px);           // 80/1920
+    display: flex;
+    flex-direction: column;
+    gap: clamp(50px, 5.208vw, 100px);                   // 100/1920
+
+    @media (max-width: 767.98px) {
+      min-height: auto;
+      padding: 24px 20px;
+      gap: 32px;
+    }
+  }
+
+  // ========================================
+  // Right Title — 1002 x 195
+  // ========================================
+  .sec2-right-title {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(20px, 2.083vw, 40px);                    // 40/1920
+  }
+
+  // ========================================
+  // Right Top — 1002 x 101
+  // ========================================
+  .sec2-right-top {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  // ========================================
+  // "讀茶知識"
+  // ========================================
+  .sec2-right-subtitle {
+    margin: 0;
+    font-family: 'Noto Sans TC', sans-serif;
+    font-weight: 400;
+    font-size: clamp(12px, 0.833vw, 16px);              // 16/1920
+    line-height: 150%;
+    letter-spacing: 0.04em;
+    color: var(--color-primary-500, #BC9C59);
+  }
+
+  // ========================================
+  // "Knowledge"
+  // ========================================
+  .sec2-right-heading {
+    margin: 0;
+    font-family: 'Hiragino Mincho ProN', 'Noto Serif TC', serif;
+    font-weight: 300;
+    font-size: clamp(32px, 3.333vw, 64px);              // 64/1920
+    line-height: 120%;
+    letter-spacing: 0.02em;
+    color: var(--color-neutral-700, #404040);
+
+    @media (max-width: 767.98px) {
+      font-size: 36px;
+    }
+  }
+
+  // ========================================
+  // Desc — 892 x 54，左邊距 110/1002 = 10.978%
+  // ========================================
+  .sec2-right-desc {
+    width: 89.02%;      // 892/1002
+    margin-left: auto;
+
+    @media (max-width: 767.98px) {
+      width: 100%;
+      margin-left: 0;
+    }
+
+    p {
+      margin: 0;
+      font-family: 'Noto Serif TC', serif;
+      font-weight: 400;
+      font-size: clamp(14px, 0.938vw, 18px);            // 18/1920
+      line-height: 150%;
+      letter-spacing: 0.04em;
+      color: var(--color-neutral-700, #404040);
+    }
+  }
+
+  // ========================================
+  // List — 1002 x 412
+  // ========================================
+  .sec2-list {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  // ========================================
+  // Blog Card — 892 x 103
+  // ========================================
+  .blog-card {
+    width: 89.02%;      // 892/1002
+    margin-left: auto;
+    padding-top: clamp(12px, 1.25vw, 24px);             // 24/1920
+    padding-bottom: clamp(12px, 1.25vw, 24px);          // 24/1920
+    border-top: 1px solid var(--color-neutral-200, #E5E5E5);
+    display: flex;
+    flex-direction: column;
+    gap: clamp(2px, 0.208vw, 4px);                      // 4/1920
+
+    @media (max-width: 767.98px) {
+      width: 100%;
+      margin-left: 0;
+    }
+  }
+
+  .blog-date {
+    margin: 0;
+    font-family: 'Noto Serif TC', serif;
+    font-weight: 400;
+    font-size: clamp(12px, 0.833vw, 16px);              // 16/1920
+    line-height: 150%;
+    letter-spacing: 0.04em;
+    color: var(--color-secondary-500, #0B4134);
+  }
+
+  .blog-dish-name {
+    margin: 0;
+    font-family: 'Noto Serif TC', serif;
+    font-weight: 400;
+    font-size: clamp(14px, 0.938vw, 18px);              // 18/1920
+    line-height: 150%;
+    letter-spacing: 0.04em;
+    color: var(--color-neutral-700, #404040);
+  }
+}

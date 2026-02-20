@@ -1,22 +1,28 @@
-import { createHashRouter } from "react-router";
 // react router
+import { createHashRouter } from "react-router-dom";
 
+// Layouts
 import FrontendLayout from "./Layouts/FrontendLayout";
 import AdminLayout from "./Layouts/AdminLayout";
-// Layouts
 
+// Frontend pages(前台)
 import Home from "./pages/front/Home";
 import About from "./pages/front/About";
-import Tea from "./pages/front/Tea";
+import Knowledge from "./pages/front/Knowledge";
+import ProductsTeaCan from "./pages/front/ProductsTeaCan";
+import ProductsGiftBox from "./pages/front/ProductsGiftBox";
+import ProductsTeaSet from "./pages/front/ProductsTeaSet";
 import SingleProduct from "./pages/front/SingleProduct";
 import Cart from "./pages/front/Cart";
-// Frontend pages
+import Login from "./pages/front/Login";
+import Register from "./pages/front/Register";
 
-import Dashboard from "./pages/admin/Dashboard";
-import ProductManage from "./pages/admin/ProductManage";
+//Admin pages(後台)
+import AdminOrders from "./pages/admin/AdminOrders";
+import AdminProducts from "./pages/admin/AdminProducts";
 
-import NotFound from "./pages/front/NotFound";
 // 404 page
+import NotFound from "./pages/front/NotFound";
 
 export const router = createHashRouter([
   {
@@ -28,12 +34,24 @@ export const router = createHashRouter([
         element: <Home />,
       },
       {
-        path: "about",
+        path: "aboutUs",
         element: <About />,
       },
       {
-        path: "tea",
-        element: <Tea />,
+        path: "knowledge",
+        element: <Knowledge />,
+      },
+      {
+        path: "productsTeaCan",
+        element: <ProductsTeaCan />,
+      },
+      {
+        path: "productsGiftBox",
+        element: <ProductsGiftBox />,
+      },
+      {
+        path: "productsTeaSet",
+        element: <ProductsTeaSet />,
       },
       {
         path: "product/:id", // 動態參數
@@ -43,6 +61,14 @@ export const router = createHashRouter([
         path: "cart",
         element: <Cart />,
       },
+      {
+        path: "login",
+        element: <Login />,
+      },
+      {
+        path: "register",
+        element: <Register />,
+      },
     ],
   },
   {
@@ -50,12 +76,12 @@ export const router = createHashRouter([
     element: <AdminLayout />,
     children: [
       {
-        index: true, // 預設首頁
-        element: <Dashboard />,
+        path: "orders",
+        element: <AdminOrders />,
       },
       {
-        path: "productmanage",
-        element: <ProductManage />,
+        path: "adminProducts",
+        element: <AdminProducts />,
       },
     ],
   },

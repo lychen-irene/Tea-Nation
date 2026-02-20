@@ -1,0 +1,233 @@
+// ========================================
+// SEC1 — 1920 x 1001
+// ========================================
+.sec1 {
+  width: 100%;
+  max-width: 1920px;
+  min-height: clamp(500px, 52.135vw, 1001px);      // 1001/1920
+  margin: 0 auto;
+  padding-top: clamp(50px, 5.208vw, 100px);         // 100/1920
+  padding-bottom: clamp(50px, 5.208vw, 100px);      // 100/1920
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: clamp(50px, 5.208vw, 100px);                 // 100/1920
+  align-items: center;
+
+  // ========================================
+  // Title — 1296 x 195，置中 (左右各 312px)
+  // ========================================
+  .sec1-title {
+    width: clamp(280px, 67.5vw, 1296px);             // 1296/1920
+    max-width: calc(100% - clamp(40px, 4.167vw, 80px));
+    display: flex;
+    flex-direction: column;
+    gap: clamp(20px, 2.083vw, 40px);                 // 40/1920
+
+    @media (max-width: 767.98px) {
+      width: calc(100% - 40px);
+    }
+  }
+
+  // ========================================
+  // Top — 1296 x 101
+  // ========================================
+  .sec1-top {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    align-self: flex-start;
+  }
+
+  // ========================================
+  // 探索茶香
+  // ========================================
+  .sec1-subtitle {
+    margin: 0;
+    font-family: 'Noto Sans TC', sans-serif;
+    font-weight: 400;
+    font-size: clamp(12px, 0.833vw, 16px);           // 16/1920
+    line-height: 150%;
+    letter-spacing: 0.04em;
+    color: var(--color-primary-500, #BC9C59);
+  }
+
+  // ========================================
+  // Explore
+  // ========================================
+  .sec1-heading {
+    margin: 0;
+    font-family: 'Hiragino Mincho ProN', 'Noto Serif TC', serif;
+    font-weight: 300;
+    font-size: clamp(32px, 3.333vw, 64px);           // 64/1920
+    line-height: 120%;
+    letter-spacing: 0.02em;
+    color: var(--color-neutral-700, #404040);
+
+    @media (max-width: 767.98px) {
+      font-size: 36px;
+    }
+  }
+
+  // ========================================
+  // Desc — 1186 x 54，貼齊 title 右下角 (左邊距 110px)
+  // ========================================
+  .sec1-desc {
+    width: 91.51%;                                    // 1186/1296
+    max-width: 1186px;
+    margin-left: auto;
+    align-self: flex-end;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    p {
+      margin: 0;
+      font-family: 'Noto Serif TC', serif;
+      font-weight: 400;
+      font-size: clamp(14px, 0.938vw, 18px);         // 18/1920
+      line-height: 150%;
+      letter-spacing: 0.04em;
+      color: var(--color-neutral-700, #404040);
+    }
+  }
+
+  // ========================================
+  // Content — 1296 x 506，置中 (左右各 312px)
+  // ========================================
+  .sec1-content {
+    width: clamp(280px, 67.5vw, 1296px);             // 1296/1920
+    max-width: calc(100% - clamp(40px, 4.167vw, 80px));
+    height: clamp(253px, 26.354vw, 506px);           // 506/1920
+    display: flex;
+    gap: clamp(12px, 1.25vw, 24px);                  // 24/1920
+
+    // Mobile: 垂直堆疊，自動高度
+    @media (max-width: 767.98px) {
+      width: calc(100% - 24px);
+      flex-direction: column;
+      height: auto;
+    }
+  }
+
+  // ========================================
+  // Card — 416 x 506 (×3)
+  // Desktop: 水平排列，border-left
+  // Mobile: 垂直堆疊，border-top
+  // ========================================
+  .sec1-card {
+    flex: 1;
+    height: 100%;
+    display: flex;
+    border-left: 1px solid var(--color-neutral-300, #D4D4D4);
+
+    @media (max-width: 767.98px) {
+      padding-top: clamp(12px, 1.25vw, 24px);
+      gap: 33.5px;
+      padding-left: 33.5px;
+    }
+  }
+
+  // ========================================
+  // Card Left — 110 x 506
+  // ========================================
+  .sec1-card-left {
+    width: clamp(55px, 5.729vw, 110px);              // 110/1920
+    min-width: clamp(55px, 5.729vw, 110px);
+    height: 100%;
+    padding-top: clamp(12px, 1.25vw, 24px);          // 24/1920
+
+    @media (max-width: 767.98px) {
+      width: auto;
+      min-width: auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+
+  .sec1-card-title {
+    margin: 0;
+    font-family: 'Noto Serif TC', serif;
+    font-weight: 700;
+    font-size: clamp(18px, 1.458vw, 28px);           // 28/1920
+    line-height: 120%;
+    letter-spacing: 0.02em;
+    text-align: center;
+    color: var(--color-neutral-700, #404040);
+
+    @media (max-width: 767.98px) {
+      font-size: 20px;
+      writing-mode: vertical-rl;
+      text-orientation: upright;
+    }
+  }
+
+  // ========================================
+  // Card Right — 306 x 506
+  // ========================================
+  .sec1-card-right {
+    flex: 1;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(12px, 1.25vw, 24px);                  // 24/1920
+  }
+
+  // ========================================
+  // Card Image — 圖片預留空間
+  // ========================================
+  .sec1-card-img {
+    width: 100%;
+
+    img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+  }
+
+  // ========================================
+  // Card Footer — textBody + icon-button
+  // ========================================
+  .sec1-card-footer {
+    display: flex;
+    align-items: flex-end;
+    gap: clamp(6px, 0.625vw, 12px);                  // 12/1920
+  }
+
+  .sec1-card-text {
+    flex: 1;
+    margin: 0;
+    font-family: 'Noto Serif TC', serif;
+    font-weight: 400;
+    font-size: clamp(12px, 0.833vw, 16px);           // 16/1920
+    line-height: 150%;
+    letter-spacing: 0.04em;
+    color: var(--color-neutral-700, #404040);
+  }
+
+  // ========================================
+  // Icon Button — 64 x 64
+  // ========================================
+  .sec1-icon-button {
+    width: clamp(32px, 3.333vw, 64px);               // 64/1920
+    height: clamp(32px, 3.333vw, 64px);              // 64/1920
+    min-width: clamp(32px, 3.333vw, 64px);
+    border-radius: 1000px;
+    border: 1px solid var(--color-neutral-700, #404040);
+    background: transparent;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: var(--color-neutral-700, #404040);
+
+    img {
+      width: clamp(12px, 1.25vw, 24px);              // 24/1920 (內含 6×12 向量)
+      height: clamp(12px, 1.25vw, 24px);             // 24/1920
+    }
+  }
+}
