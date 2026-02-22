@@ -9,12 +9,11 @@ import awards from "../../assets/images/About/Awards.png";
 import michelin from "../../assets/images/About/michelin.png";
 import flavor from "../../assets/images/About/flavor.png";
 
-
 const About = () => {
   const aboutPerson = [
     {
       name: "紀承山",
-      englishName: "Cheng-Shan Ji",
+      englishName: "Cheng-Shan Ji ",
       title: "CEO 主理人",
       desc: "靈魂只能由「好的茶葉」來滋養。",
       imgUrl: ChengShanJi,
@@ -22,21 +21,21 @@ const About = () => {
     {
       name: "葉予詩",
       englishName: "Yu-Ching Yeh ",
-      title: "Tea Arts Director",
+      title: "Tea Arts Director 茶藝總監",
       desc: "品嘗每一口茶的醇厚與餘韻。",
       imgUrl: YuChingYeh,
     },
     {
       name: "蘇雲時",
       englishName: "Yun-Shi Su",
-      title: "LE SOP",
+      title: "LR Rep 在地關係代表",
       desc: "將最純潔的氣息奉獻給大地。",
       imgUrl: YunShiSu,
     },
     {
       name: "林衡序",
       englishName: "Heng-Xu Lin",
-      title: "Brand Designer",
+      title: "Brand Designer 品牌設計",
       desc: "用設計將溫柔的精神傳遞出去。",
       imgUrl: HengXuLin,
     },

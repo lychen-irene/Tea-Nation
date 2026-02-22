@@ -1,5 +1,5 @@
-import slideImage7 from "../assets/images/Home/slide7.png";
-import iconRight from "../assets/images/Home/icon-right.svg";
+import slideImage7 from "../../assets/images/Home/slide7.png";
+import iconRight from "../../assets/images/Home/icon-right.svg";
 
 const blogCards = [
   { date: "2026 . 08 . 03", dishName: "淺焙與深焙：哪一款最能安撫你午後的疲憊？" },

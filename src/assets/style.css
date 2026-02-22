@@ -102,7 +102,6 @@ p {
 }
 
 /* 購物車 */
-
 .cart-list-heading th {
   font-family: "Noto Serif TC";
   font-style: normal;
@@ -199,4 +198,61 @@ p {
   background: #bc9c59;
   border: none;
   color: #ffffff;
+}
+
+/* admin */
+/* AdminLayout 主要容器 */
+.admin-main {
+    position: relative;
+    min-height: 100vh;
+    padding-top: 100px;    /* 避開固定導覽列 */
+    padding-bottom: 150px; /* 避開固定頁尾 */
+    overflow-x: hidden;
+}
+
+/* 獨立控制背景圖的透明度與大小 */
+.admin-main::before {
+    content: "";
+    position: fixed;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 70%;
+    height: 70%;
+    
+    /* 這裡路徑請根據你的資料夾結構微調，通常是往上兩層到 assets */
+    background-image: url("./images/Navbar&Footer/TeaNationLogo.jpg");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    
+    /* 核心需求：只針對圖片刷淡 */
+    opacity: 0.3;
+    z-index: -1;
+    pointer-events: none;
+}
+
+/* 讓表格整體透明 */
+.table-transparent {
+    background-color: transparent !important;
+}
+
+/* 移除所有儲存格的底色 */
+.table-transparent thead tr,
+.table-transparent tbody tr,
+.table-transparent td,
+.table-transparent th {
+    background-color: transparent !important;
+    /* 如果覺得完全透明字太難看，可以加一點點極淡的白色煙霧感 */
+    /* background-color: rgba(255, 255, 255, 0.3) !important; */
+}
+
+/* 保持框線顏色，或是讓框線也變淡一點 */
+.table-transparent td {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1) !important;
+}
+
+/* 修正：如果使用了 table-hover，懸停時給予微微的背景感以利辨識 */
+.table-transparent.table-hover tbody tr:hover {
+    background-color: rgba(255, 255, 255, 0.5) !important;
 }

@@ -1,7 +1,7 @@
-import slideImage1 from "../assets/images/Home/slide1.png";
-import slideImage2 from "../assets/images/Home/slide2.png";
-import slideImage3 from "../assets/images/Home/slide3.png";
-import iconRight from "../assets/images/Home/icon-right.svg";
+import slideImage1 from "../../assets/images/Home/slide1.png";
+import slideImage2 from "../../assets/images/Home/slide2.png";
+import slideImage3 from "../../assets/images/Home/slide3.png";
+import iconRight from "../../assets/images/Home/icon-right.svg";
 
 const slides = [
   {

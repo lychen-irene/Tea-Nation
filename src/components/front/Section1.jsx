@@ -1,7 +1,7 @@
-import slideImage4 from "../assets/images/Home/slide4.png";
-import slideImage5 from "../assets/images/Home/slide5.png";
-import slideImage6 from "../assets/images/Home/slide6.png";
-import iconRight from "../assets/images/Home/icon-right.svg";
+import slideImage4 from "../../assets/images/Home/slide4.png";
+import slideImage5 from "../../assets/images/Home/slide5.png";
+import slideImage6 from "../../assets/images/Home/slide6.png";
+import iconRight from "../../assets/images/Home/icon-right.svg";
 
 const cards = [
   {

@@ -1,33 +1,30 @@
-import { useState } from "react"; // 必須匯入 useState
-import { Outlet, Link } from "react-router-dom"; // 確保匯入 Link
-import Footer from "../components/Footer";
+import { useState } from "react";
+import { Outlet, Link } from "react-router-dom";
 
 import TeaNationLogo from "../assets/images/Navbar&Footer/TeaNationLogo.jpg";
 import menu from "../assets/images/Navbar&Footer/menu.png";
 
 const AdminLayout = () => {
+  // 控制漢堡選單開關狀態
   const [isNavCollapsed, setIsNavCollapsed] = useState(true);
-  const handleToggle = () => setIsNavCollapsed(!isNavCollapsed);
-  const closeNav = () => setIsNavCollapsed(true);
 
+  // 切換選單
+  const handleToggle = () => setIsNavCollapsed(!isNavCollapsed);
+
+  // 關閉選單（點擊連結或 Logo 時觸發）
+  const closeNav = () => setIsNavCollapsed(true);
 
   return (
     <>
-      <nav className="navbar navbar-expand-lg navbar-light bg-dark navbar-dark border-bottom shadow-sm py-0">
-        {/* 我幫你把背景改成 bg-dark，這樣可以一眼區分前台與後台 */}
+      <nav className="navbar navbar-expand-lg navbar-light bg-white border-bottom shadow-sm py-0 fixed-top">
         <div className="container">
           {/* 左側：Logo */}
           <div className="navbar-brand m-0 py-0">
-            <Link to="/admin" onClick={closeNav}>
+            <Link to="/" onClick={closeNav}>
               <img
                 src={TeaNationLogo}
-                alt="Tea Nation Admin"
-                style={{
-                  height: "60px",
-                  transition: "0.3s",
-                  filter: "brightness(0) invert(1)",
-                }}
-                // filter 可以讓黑 Logo 變白 Logo
+                alt="Tea Nation"
+                style={{ height: "80px", transition: "0.3s" }}
               />
             </Link>
           </div>
@@ -39,46 +36,39 @@ const AdminLayout = () => {
             onClick={handleToggle}
             aria-expanded={!isNavCollapsed}
           >
-            <img src={menu} alt="menu" style={{ filter: "invert(1)" }} />
+            <img src={menu} alt="" />
           </button>
 
-          {/* 內容區塊 */}
+          {/* 內容區塊：漢堡選單 */}
           <div
-            className={`collapse navbar-collapse ${!isNavCollapsed ? "show" : ""}`}
+            className={`nav-transition-wrapper ${!isNavCollapsed ? "show" : ""} navbar-collapse`}
           >
-            <ul className="navbar-nav mx-auto gap-lg-4">
-              <li className="nav-item">
-                <Link
-                  className="nav-link text-white"
-                  to="/admin/adminProducts"
-                  onClick={closeNav}
-                >
-                  管理產品
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link
-                  className="nav-link text-white"
-                  to="/admin/orders"
-                  onClick={closeNav}
-                >
-                  管理訂單
-                </Link>
-              </li>
-            </ul>
-            <Link to="/" className="btn btn-outline-light btn-sm">
-              返回前台
-            </Link>
+            <div className="nav-transition-inner w-100">
+              <div className="d-lg-flex justify-content-between align-items-center w-100 py-3 py-lg-0">
+                {/* 中間：導覽連結 */}
+                <ul className="navbar-nav mx-auto gap-lg-4">
+                  <li className="nav-item">
+                    <Link className="nav-link" to="products" onClick={closeNav}>
+                      管理產品
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link className="nav-link" to="orders" onClick={closeNav}>
+                      管理訂單
+                    </Link>
+                  </li>
+                </ul>
+              </div>
+            </div>
           </div>
         </div>
       </nav>
 
-      {/* 主要內容區 */}
-      <main className="container py-5" style={{ minHeight: "80vh" }}>
-        <Outlet />
+      <main className="admin-main">
+        <div className="container">
+          <Outlet />
+        </div>
       </main>
-
-      <Footer />
     </>
   );
 };

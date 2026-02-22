@@ -1,6 +1,6 @@
-import iconRight from "../assets/images/Home/icon-right.svg";
-import sec3Card from "../assets/images/Home/sec3Card.jpg";
-import sec4Card from "../assets/images/Home/sec4Card.png";
+import iconRight from "../../assets/images/Home/icon-right.svg";
+import sec3Card from "../../assets/images/Home/sec3Card.jpg";
+import sec4Card from "../../assets/images/Home/sec4Card.png";
 
 export default function Sec34() {
   return (

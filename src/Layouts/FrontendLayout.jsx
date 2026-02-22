@@ -72,17 +72,17 @@ const FrontendLayout = () => {
                     </Link>
                   </li>
                   <li className="nav-item">
-                    <Link className="nav-link" to="/product" onClick={closeNav}>
+                    <Link className="nav-link" to="/productsTeaCan" onClick={closeNav}>
                       品茶
                     </Link>
                   </li>
                   <li className="nav-item">
-                    <Link className="nav-link" to="/product" onClick={closeNav}>
+                    <Link className="nav-link" to="/productsGiftBox" onClick={closeNav}>
                       禮盒
                     </Link>
                   </li>
                   <li className="nav-item">
-                    <Link className="nav-link" to="/product" onClick={closeNav}>
+                    <Link className="nav-link" to="/productsTeaSet" onClick={closeNav}>
                       茶具
                     </Link>
                   </li>

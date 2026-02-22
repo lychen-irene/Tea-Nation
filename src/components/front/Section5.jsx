@@ -1,6 +1,6 @@
-import sec5Card1 from "../assets/images/Home/sec5Card1.png";
-import sec5Card2 from "../assets/images/Home/sec5Card2.jpg";
-import sec5Card3 from "../assets/images/Home/sec5Card3.jpg";
+import sec5Card1 from "../../assets/images/Home/sec5Card1.png";
+import sec5Card2 from "../../assets/images/Home/sec5Card2.jpg";
+import sec5Card3 from "../../assets/images/Home/sec5Card3.jpg";
 
 const promiseCards = [
   {
