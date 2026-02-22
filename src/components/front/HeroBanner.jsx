@@ -11,6 +11,7 @@ const slides = [
     bgImage: slideImage1,
     bnName:"開始選茶",
     fontColor: "#404040",
+    align: "center",
   },
   {
     title: "一杯好茶，更好的器具",
@@ -19,6 +20,7 @@ const slides = [
     bgImage: slideImage2,
     bnName:"逛逛茶具",
     fontColor: "#FFFFFF",
+    align: "right",
   },
   {
     title: "泡一杯，留住生活優雅",
@@ -27,6 +29,7 @@ const slides = [
     bgImage: slideImage3,
     bnName:"探索禮盒",
     fontColor: "#FFFFFF",
+    align: "left",
   },
 ];
 
@@ -36,7 +39,7 @@ export default function HeroBanner() {
       id="carouselExampleCaptions"
       className="carousel slide hero-carousel"
       data-bs-ride="carousel"
-      data-bs-interval="3000"
+      data-bs-interval="2000"
     >
       {/* 輪播圖片區域 */}
       <div className="carousel-inner">
@@ -69,7 +72,7 @@ export default function HeroBanner() {
                   </div>
                 </div>
                 {/* 右側區域 */}
-                <div className="caption-right">
+                <div className={`caption-right caption-align-${slide.align}`}>
                   <div className="caption-content">
                     <div className="caption-top">
                       <div className="caption-body caption-subtitle">
