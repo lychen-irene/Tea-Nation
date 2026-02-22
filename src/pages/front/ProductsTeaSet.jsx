@@ -11,7 +11,7 @@ const ProductsTeaSet = () => {
   const [id, setId] = useState(null);
   const [product, setProduct] = useState(null);
 
-  // 取得其他茶品列表
+  // 取得其他茶具列表
   useEffect(() => {
     const getProduct = async () => {
       try {
@@ -179,6 +179,78 @@ const ProductsTeaSet = () => {
                   加入購物車
                 </button>
               </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 推薦茶款區塊 */}
+      <section className='container py-5 my-md-4'>
+        {/* 帶有水平線的置中標題 */}
+        <div className='d-flex align-items-center justify-content-center mt-20 mb-20'>
+          <div
+            className='flex-grow-1'
+            style={{
+              height: "1px",
+              backgroundColor: "#BC9C59",
+              maxWidth: "400px",
+            }}
+          ></div>
+          <div className='text-center px-20'>
+            <span
+              className='fw-bold d-block'
+              style={{
+                color: "#BC9C59",
+                letterSpacing: "2px",
+                fontSize: "0.85rem",
+                marginBottom: "4px",
+              }}
+            >
+              推薦茶款
+            </span>
+            <h2
+              className='display-6 text-dark mb-0'
+              style={{ fontFamily: "serif", letterSpacing: "1px" }}
+            >
+              Recommendation
+            </h2>
+          </div>
+          <div
+            className='flex-grow-1'
+            style={{
+              height: "1px",
+              backgroundColor: "#BC9C59",
+              maxWidth: "400px",
+            }}
+          ></div>
+        </div>
+        <div className='row'>
+          {/* 左側：商品大圖 */}
+          <div className='col-12 col-lg-7 mb-5 mb-lg-0'>
+            <div
+              className='position-relative w-100 overflow-hidden shadow-sm'
+              style={{ aspectRatio: "4/3", backgroundColor: "#F9F8F6" }}
+            >
+              <img
+                src='https://storage.googleapis.com/vue-course-api.appspot.com/teanation/1771678751984.jpg'
+                alt='蜜香紅茶'
+                className='position-absolute top-0 start-0 w-100 h-100'
+                style={{ objectFit: "cover" }}
+              />
+            </div>
+          </div>
+
+          {/* 右側：推薦茶款資訊 */}
+          <div className='col-12 col-lg-5 ps-lg-5'>
+            <div className='text-start'>
+              {/* 推薦茶款描述 */}
+              <p
+                className='text-secondary small lh-lg mb-4 text-justify'
+                style={{ letterSpacing: "1px" }}
+              >
+                擁​有​迷人​的​琥珀色​茶湯​與​獨特​的​天然​蜜味，​而​【維多利亞 ·
+                藍​薔薇​之​詩​】這​套瓷器​ 正​是​它​的​完美​舞台。​
+              </p>
             </div>
           </div>
         </div>

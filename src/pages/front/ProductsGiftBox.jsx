@@ -11,7 +11,7 @@ const ProductsGiftBox = () => {
   const [id, setId] = useState(null);
   const [product, setProduct] = useState(null);
 
-  // 取得其他茶品列表
+  // 取得其他禮盒列表
   useEffect(() => {
     const getProduct = async () => {
       try {
@@ -26,7 +26,7 @@ const ProductsGiftBox = () => {
     getProduct();
   }, []);
 
-  // 取得產品詳細資料
+  // 取得禮盒詳細資料
   useEffect(() => {
     const getSingleProduct = async () => {
       try {
