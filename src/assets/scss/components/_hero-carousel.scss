@@ -134,12 +134,46 @@
     }
 
     // ========================================
+    // Align Variants — 每張輪播圖不同定位
+    // center: 置中（預設）
+    // right: 靠右
+    // left: 靠左
+    // ========================================
+    .caption-align-center {
+      .caption-content {
+        right: 38.12%;  // 預設置中
+      }
+      .caption-bottom {
+        right: 45.29%;  // 預設置中
+      }
+    }
+
+    .caption-align-right {
+      .caption-content {
+        right: 5%;
+      }
+      .caption-bottom {
+        right: 12%;
+      }
+    }
+
+    .caption-align-left {
+      .caption-content {
+        right: auto;
+        left: 5%;
+      }
+      .caption-bottom {
+        right: auto;
+        left: 5%;
+      }
+    }
+
+    // ========================================
     // Content — 絕對定位，等比縮放
     // ========================================
     .caption-content {
       position: absolute;
       top: 12%;       // 120/1000
-      right: 38.12%;  // 494/1296
       display: flex;
       flex-direction: column;
       gap: clamp(40px, 4.167vw, 80px); // 80/1920
@@ -218,7 +252,6 @@
     // ========================================
     .caption-bottom {
       position: absolute;
-      right: 45.29%;    // 587/1296 (content right 494 + 93)
       top: 64%;         // 640/1000 (content top 12% + 間距 520/1000 = 52%)
       width: clamp(60px, 6.25vw, 120px);   // 120/1920
       height: clamp(120px, 12.5vw, 240px); // 240/1920
