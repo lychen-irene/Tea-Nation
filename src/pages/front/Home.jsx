@@ -1,17 +1,17 @@
-import HeroBanner from "../../components/HeroBanner";
-import Sec1 from "../../components/Sec1";
-import Sec2 from "../../components/Sec2";
-import Sec34 from "../../components/Sec34";
-import Sec5 from "../../components/Sec5";
+import HeroBanner from "../../components/front/HeroBanner";
+import Section1 from "../../components/front/Section1";
+import Section2 from "../../components/front/Section2";
+import Section34 from "../../components/front/Section34";
+import Section5 from "../../components/front/Section5";
 
 const Home = () => {
   return (
     <>
       <HeroBanner />
-      <Sec1 />
-      <Sec2 />
-      <Sec34 />
-      <Sec5 />
+      <Section1 />
+      <Section2 />
+      <Section34 />
+      <Section5 />
     </>
   );
 };

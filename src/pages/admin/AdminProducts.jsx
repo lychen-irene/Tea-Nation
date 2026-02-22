@@ -126,7 +126,7 @@ export const AdminProducts = () => {
           </button>
         </div>
 
-        <table className="table mt-4">
+        <table className="table mt-4 table-transparent">
           <Form product={product} openModal={openModal} />
         </table>
 
