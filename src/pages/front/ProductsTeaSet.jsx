@@ -1,6 +1,5 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 import cart from "../../assets/images/Navbar&Footer/cart.png";
 
@@ -8,8 +7,39 @@ const API_BASE = import.meta.env.VITE_API_BASE;
 const API_PATH = import.meta.env.VITE_API_PATH;
 
 const ProductsTeaSet = () => {
-  const navigate = useNavigate();
   const [products, setProducts] = useState([]);
+  const [id, setId] = useState(null);
+  const [product, setProduct] = useState(null);
+
+  // 取得其他茶品列表
+  useEffect(() => {
+    const getProduct = async () => {
+      try {
+        const res = await axios.get(`${API_BASE}/api/${API_PATH}/products`);
+        console.log(res.data.products);
+        setProducts(res.data.products);
+      } catch (error) {
+        console.error("取得產品資料失敗", error);
+      }
+    };
+
+    getProduct();
+  }, []);
+
+  // 取得產品詳細資料
+  useEffect(() => {
+    const getSingleProduct = async () => {
+      try {
+        const res = await axios.get(`${API_BASE}/api/${API_PATH}/product/${id}`);
+        console.log(res.data.product);
+        setProduct(res.data.product);
+      } catch (error) {
+        console.error("取得產品資料失敗", error);
+      }
+    };
+    getSingleProduct();
+  }, [id]);
+
   // 購買數量狀態
   const [quantity, setQuantity] = useState(1);
 
@@ -25,33 +55,23 @@ const ProductsTeaSet = () => {
     setQuantity(quantity + 1);
   };
 
-  // 商品規格資料
-  const productSpecs = [
-    { label: "最佳水溫", value: "95 度 C" },
-    { label: "沖泡時間", value: "3 - 5 分鐘" },
-    { label: "建議茶量", value: "3 - 5 g" },
-  ];
-
-  // 產地資料
-  const origins = ["南投", "桃園", "新竹", "苗栗"];
+  // 加入購物車
+  const addToCart = async (id, qty = 1) => {
+    try {
+      const data = {
+        product_id: id,
+        qty,
+      };
+      const res = await axios.post(`${API_BASE}/api/${API_PATH}/cart`, { data });
+      console.log(res.data);
+    } catch (error) {
+      console.error("加入購物車失敗", error);
+    }
+  };
 
   // 其他茶具資料
   const otherTeaSets = products.filter((product) => product.category === "茶具");
   console.log(otherTeaSets);
-
-  useEffect(() => {
-    const getProduct = async () => {
-      try {
-        const res = await axios.get(`${API_BASE}/api/${API_PATH}/products`);
-        console.log(res.data.products);
-        setProducts(res.data.products);
-      } catch (error) {
-        console.error("取得產品資料失敗", error);
-      }
-    };
-
-    getProduct();
-  }, []);
 
   return (
     <div className='product-detail-page pt-5'>
@@ -65,8 +85,11 @@ const ProductsTeaSet = () => {
               style={{ aspectRatio: "4/3", backgroundColor: "#F9F8F6" }}
             >
               <img
-                src='https://images.unsplash.com/photo-1594631252845-29fc4cc8c0a1?q=80&w=800&auto=format&fit=crop'
-                alt='蜜香紅茶'
+                src={
+                  product?.imageUrl ||
+                  "https://storage.googleapis.com/vue-course-api.appspot.com/teanation/1770727454786.jpg"
+                }
+                alt={product?.name || "蜜香紅茶"}
                 className='position-absolute top-0 start-0 w-100 h-100'
                 style={{ objectFit: "cover" }}
               />
@@ -76,29 +99,15 @@ const ProductsTeaSet = () => {
           {/* 右側：商品資訊 */}
           <div className='col-12 col-lg-5 ps-lg-5'>
             <div className='text-start'>
-              {/* 標籤 */}
-              <span
-                className='badge mb-3 px-3 py-2 fw-normal'
-                style={{
-                  backgroundColor: "#C6AB7E",
-                  color: "#fff",
-                  letterSpacing: "2px",
-                  fontSize: "0.8rem",
-                  borderRadius: "2px",
-                }}
-              >
-                重度發酵
-              </span>
-
               {/* 商品標題與價格 */}
               <h1
                 className='display-5 text-dark fw-bold mb-2'
                 style={{ fontFamily: "serif", letterSpacing: "2px" }}
               >
-                銀索流光 · 歲月獨白
+                {product?.tiele || "銀索流光 · 歲月獨白"}
               </h1>
               <h4 className='mb-4' style={{ color: "#BC9C59", letterSpacing: "1px" }}>
-                NT$ 450
+                NT$ {product?.price || 450}
               </h4>
 
               {/* 商品描述 */}
@@ -106,53 +115,9 @@ const ProductsTeaSet = () => {
                 className='text-secondary small lh-lg mb-4 text-justify'
                 style={{ letterSpacing: "1px" }}
               >
-                「蟲咬出來的蜜味」。茶葉在生長過程中必須經過「小綠葉蟬（Jacobiasca
-                formosana）」吸吮（俗稱「著涎」），茶樹為了自我防禦會產生特殊的化學變化，進而轉化成天然的蜜香。
+                {product?.content ||
+                  "這組茶具不僅僅是容器，更像是一段被凝結的時光。它展現了從維多利亞時期到愛德華時期過渡的典型美學——既有巴洛克的華麗，又開始追求線條的秩序感。"}
               </p>
-
-              {/* 規格列表 */}
-              <div className='mb-5'>
-                {productSpecs.map((spec, index) => (
-                  <div key={index} className='d-flex mb-2 align-items-center'>
-                    <span
-                      className='text-secondary small'
-                      style={{ width: "80px", letterSpacing: "2px" }}
-                    >
-                      {spec.label}
-                    </span>
-                    <span className='text-dark small' style={{ letterSpacing: "1px" }}>
-                      {spec.value}
-                    </span>
-                  </div>
-                ))}
-
-                {/* 產地標籤 */}
-                <div className='d-flex align-items-center mt-3'>
-                  <span
-                    className='text-secondary small'
-                    style={{ width: "80px", letterSpacing: "2px" }}
-                  >
-                    種植產地
-                  </span>
-                  <div className='d-flex gap-2 flex-wrap'>
-                    {origins.map((origin, index) => (
-                      <span
-                        key={index}
-                        className='px-2 py-1'
-                        style={{
-                          backgroundColor: "#EEF3F0",
-                          color: "#4A6B58",
-                          fontSize: "0.75rem",
-                          letterSpacing: "1px",
-                          borderRadius: "2px",
-                        }}
-                      >
-                        {origin}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </div>
 
               {/* 購買操作區 */}
               <div className='d-flex align-items-center gap-4'>
@@ -206,6 +171,7 @@ const ProductsTeaSet = () => {
                     e.target.style.borderColor = "#D9D9D9";
                     e.target.style.color = "#6c757d";
                   }}
+                  onClick={() => addToCart(product?.id || "-Om-JC4ovThJxwvnElzo")}
                 >
                   <span className='me-2'>
                     <img src={cart} alt='購物車' />
@@ -261,14 +227,18 @@ const ProductsTeaSet = () => {
 
         {/* 網格卡片區 */}
         <div className='row g-4 g-lg-5'>
-          {otherTeaSets.map((tea) => (
-            <div key={tea.id} className='col-6 col-md-3'>
+          {otherTeaSets.map((otherTeaSet) => (
+            <div
+              key={otherTeaSet.id}
+              className='col-6 col-md-3'
+              onClick={() => setId(otherTeaSet.id)}
+            >
               <div className='product-card'>
                 {/* 卡片圖片 */}
                 <div className='w-100 mb-3 overflow-hidden bg-light' style={{ aspectRatio: "3/4" }}>
                   <img
-                    src={tea.imageUrl}
-                    alt={tea.title}
+                    src={otherTeaSet.imageUrl}
+                    alt={otherTeaSet.title}
                     className='w-100 h-100'
                     style={{
                       objectFit: "cover",
@@ -286,10 +256,10 @@ const ProductsTeaSet = () => {
                       className='fw-bold mb-1'
                       style={{ letterSpacing: "1px", fontSize: "0.95rem" }}
                     >
-                      {tea.title}
+                      {otherTeaSet.title}
                     </h6>
                     <p className='mb-0 small' style={{ color: "#BC9C59", letterSpacing: "1px" }}>
-                      NT$ {tea.price}
+                      NT$ {otherTeaSet.price}
                     </p>
                   </div>
 

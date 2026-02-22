@@ -1,6 +1,5 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 import cart from "../../assets/images/Navbar&Footer/cart.png";
 
@@ -8,8 +7,39 @@ const API_BASE = import.meta.env.VITE_API_BASE;
 const API_PATH = import.meta.env.VITE_API_PATH;
 
 const ProductsTeaCan = () => {
-  const navigate = useNavigate();
   const [products, setProducts] = useState([]);
+  const [id, setId] = useState(null);
+  const [product, setProduct] = useState(null);
+
+  // 取得其他茶品列表
+  useEffect(() => {
+    const getProduct = async () => {
+      try {
+        const res = await axios.get(`${API_BASE}/api/${API_PATH}/products`);
+        console.log(res.data.products);
+        setProducts(res.data.products);
+      } catch (error) {
+        console.error("取得產品資料失敗", error);
+      }
+    };
+
+    getProduct();
+  }, []);
+
+  // 取得產品詳細資料
+  useEffect(() => {
+    const getSingleProduct = async () => {
+      try {
+        const res = await axios.get(`${API_BASE}/api/${API_PATH}/product/${id}`);
+        console.log(res.data.product);
+        setProduct(res.data.product);
+      } catch (error) {
+        console.error("取得產品資料失敗", error);
+      }
+    };
+    getSingleProduct();
+  }, [id]);
+
   // 購買數量狀態
   const [quantity, setQuantity] = useState(1);
 
@@ -23,6 +53,20 @@ const ProductsTeaCan = () => {
   // 增加數量
   const increaseQuantity = () => {
     setQuantity(quantity + 1);
+  };
+
+  // 加入購物車
+  const addToCart = async (id, qty = 1) => {
+    try {
+      const data = {
+        product_id: id,
+        qty,
+      };
+      const res = await axios.post(`${API_BASE}/api/${API_PATH}/cart`, { data });
+      console.log(res.data);
+    } catch (error) {
+      console.error("加入購物車失敗", error);
+    }
   };
 
   // 商品規格資料
@@ -69,20 +113,6 @@ const ProductsTeaCan = () => {
   //   },
   // ];
 
-  useEffect(() => {
-    const getProduct = async () => {
-      try {
-        const res = await axios.get(`${API_BASE}/api/${API_PATH}/products`);
-        console.log(res.data.products);
-        setProducts(res.data.products);
-      } catch (error) {
-        console.error("取得產品資料失敗", error);
-      }
-    };
-
-    getProduct();
-  }, []);
-
   return (
     <div className='product-detail-page'>
       {/* 主商品區塊 */}
@@ -95,8 +125,11 @@ const ProductsTeaCan = () => {
               style={{ aspectRatio: "4/3", backgroundColor: "#F9F8F6" }}
             >
               <img
-                src='https://images.unsplash.com/photo-1594631252845-29fc4cc8c0a1?q=80&w=800&auto=format&fit=crop'
-                alt='蜜香紅茶'
+                src={
+                  product?.imageUrl ||
+                  "https://storage.googleapis.com/vue-course-api.appspot.com/teanation/1771678751984.jpg"
+                }
+                alt={product?.title || "蜜香紅茶"}
                 className='position-absolute top-0 start-0 w-100 h-100'
                 style={{ objectFit: "cover" }}
               />
@@ -122,10 +155,10 @@ const ProductsTeaCan = () => {
                 className='text-neutral-700 display-5 fw-bold mb-3'
                 style={{ fontFamily: "serif", letterSpacing: "2px" }}
               >
-                蜜香紅茶
+                {product?.title || "蜜香紅茶"}
               </h2>
               <h4 className='mb-10 text-primary-500' style={{ letterSpacing: "1px" }}>
-                NT$ 450
+                NT$ {product?.price || 450}
               </h4>
 
               {/* 商品描述 */}
@@ -133,8 +166,8 @@ const ProductsTeaCan = () => {
                 className='text-neutral-700 small lh-lg mb-10 text-justify'
                 style={{ letterSpacing: "1px" }}
               >
-                「蟲咬出來的蜜味」。茶葉在生長過程中必須經過「小綠葉蟬（Jacobiasca
-                formosana）」吸吮（俗稱「著涎」），茶樹為了自我防禦會產生特殊的化學變化，進而轉化成天然的蜜香。
+                {product?.content ||
+                  "「蟲咬出來的蜜味」。茶葉在生長過程中必須經過「小綠葉蟬（Jacobiasca formosana）」吸吮（俗稱「著涎」），茶樹為了自我防禦會產生特殊的化學變化，進而轉化成天然的蜜香。"}
               </p>
 
               {/* 規格列表 */}
@@ -233,6 +266,7 @@ const ProductsTeaCan = () => {
                     e.target.style.borderColor = "#D9D9D9";
                     e.target.style.color = "#6c757d";
                   }}
+                  onClick={() => addToCart(product?.id || "-Om-JC4ovThJxwvnElzo")}
                 >
                   <span className='me-2'>
                     <img src={cart} alt='購物車' />
@@ -280,14 +314,14 @@ const ProductsTeaCan = () => {
 
         {/* 網格卡片區 */}
         <div className='row g-4 g-lg-5'>
-          {otherTeas.map((product) => (
-            <div key={product.id} className='col-6 col-md-3'>
+          {otherTeas.map((otherTea) => (
+            <div key={otherTea.id} className='col-6 col-md-3' onClick={() => setId(otherTea.id)}>
               <div className='product-card'>
                 {/* 卡片圖片 */}
                 <div className='w-100 mb-3 overflow-hidden bg-light' style={{ aspectRatio: "3/4" }}>
                   <img
-                    src={product.imageUrl}
-                    alt={product.title}
+                    src={otherTea.imageUrl}
+                    alt={otherTea.title}
                     className='w-100 h-100'
                     style={{
                       objectFit: "cover",
@@ -305,10 +339,10 @@ const ProductsTeaCan = () => {
                       className='fw-bold mb-1'
                       style={{ letterSpacing: "1px", fontSize: "0.95rem" }}
                     >
-                      {product.title}
+                      {otherTea.title}
                     </h6>
                     <p className='mb-0 small' style={{ color: "#BC9C59", letterSpacing: "1px" }}>
-                      NT$ {product.price}
+                      NT$ {otherTea.price}
                     </p>
                   </div>
 
@@ -330,6 +364,7 @@ const ProductsTeaCan = () => {
                       e.currentTarget.style.borderColor = "#D9D9D9";
                       e.currentTarget.style.color = "#999";
                     }}
+                    onClick={() => addToCart(otherTea.id)}
                   >
                     <span style={{ fontSize: "1.1rem", marginBottom: "2px" }}>
                       <img src={cart} alt='購物車' />

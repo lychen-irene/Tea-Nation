@@ -12,7 +12,6 @@ import Knowledge from "./pages/front/Knowledge";
 import ProductsTeaCan from "./pages/front/ProductsTeaCan";
 import ProductsGiftBox from "./pages/front/ProductsGiftBox";
 import ProductsTeaSet from "./pages/front/ProductsTeaSet";
-import SingleProduct from "./pages/front/SingleProduct";
 import Cart from "./pages/front/Cart";
 import Login from "./pages/front/Login";
 import Register from "./pages/front/Register";
@@ -52,10 +51,6 @@ export const router = createHashRouter([
       {
         path: "productsTeaSet",
         element: <ProductsTeaSet />,
-      },
-      {
-        path: "product/:id", // 動態參數
-        element: <SingleProduct />,
       },
       {
         path: "cart",
