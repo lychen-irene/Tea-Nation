@@ -1,10 +1,8 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { API_BASE, API_PATH } from "../../api/config";
 
 import cart from "../../assets/images/Navbar&Footer/cart.png";
-
-const API_BASE = import.meta.env.VITE_API_BASE;
-const API_PATH = import.meta.env.VITE_API_PATH;
 
 const ProductsTeaCan = () => {
   const [products, setProducts] = useState([]);
@@ -30,7 +28,9 @@ const ProductsTeaCan = () => {
   useEffect(() => {
     const getSingleProduct = async () => {
       try {
-        const res = await axios.get(`${API_BASE}/api/${API_PATH}/product/${id}`);
+        const res = await axios.get(
+          `${API_BASE}/api/${API_PATH}/product/${id}`
+        );
         console.log(res.data.product);
         setProduct(res.data.product);
       } catch (error) {
@@ -62,7 +62,9 @@ const ProductsTeaCan = () => {
         product_id: id,
         qty,
       };
-      const res = await axios.post(`${API_BASE}/api/${API_PATH}/cart`, { data });
+      const res = await axios.post(`${API_BASE}/api/${API_PATH}/cart`, {
+        data,
+      });
       console.log(res.data);
     } catch (error) {
       console.error("加入購物車失敗", error);
@@ -157,7 +159,10 @@ const ProductsTeaCan = () => {
               >
                 {product?.title || "蜜香紅茶"}
               </h2>
-              <h4 className='mb-10 text-primary-500' style={{ letterSpacing: "1px" }}>
+              <h4
+                className='mb-10 text-primary-500'
+                style={{ letterSpacing: "1px" }}
+              >
                 NT$ {product?.price || 450}
               </h4>
 
@@ -180,7 +185,10 @@ const ProductsTeaCan = () => {
                     >
                       {spec.label}
                     </span>
-                    <span className='text-dark small' style={{ letterSpacing: "1px" }}>
+                    <span
+                      className='text-dark small'
+                      style={{ letterSpacing: "1px" }}
+                    >
                       {spec.value}
                     </span>
                   </div>
@@ -230,7 +238,10 @@ const ProductsTeaCan = () => {
                   >
                     -
                   </button>
-                  <span className='fw-bold fs-5 text-center' style={{ width: "100px" }}>
+                  <span
+                    className='fw-bold fs-5 text-center'
+                    style={{ width: "100px" }}
+                  >
                     {quantity}
                   </span>
                   <button
@@ -266,7 +277,9 @@ const ProductsTeaCan = () => {
                     e.target.style.borderColor = "#D9D9D9";
                     e.target.style.color = "#6c757d";
                   }}
-                  onClick={() => addToCart(product?.id || "-Om-JC4ovThJxwvnElzo")}
+                  onClick={() =>
+                    addToCart(product?.id || "-Om-JC4ovThJxwvnElzo")
+                  }
                 >
                   <span className='me-2'>
                     <img src={cart} alt='購物車' />
@@ -280,12 +293,19 @@ const ProductsTeaCan = () => {
       </section>
 
       {/* 其他茶品區塊 */}
-      <section className='container-fluid py-5 mt-5' style={{ backgroundColor: "#FCFCFC" }}>
+      <section
+        className='container-fluid py-5 mt-5'
+        style={{ backgroundColor: "#FCFCFC" }}
+      >
         {/* 帶有水平線的置中標題 */}
         <div className='d-flex align-items-center justify-content-center mt-20 mb-20'>
           <div
             className='flex-grow-1'
-            style={{ height: "1px", backgroundColor: "#BC9C59", maxWidth: "400px" }}
+            style={{
+              height: "1px",
+              backgroundColor: "#BC9C59",
+              maxWidth: "400px",
+            }}
           ></div>
           <div className='text-center px-20'>
             <span
@@ -308,17 +328,28 @@ const ProductsTeaCan = () => {
           </div>
           <div
             className='flex-grow-1'
-            style={{ height: "1px", backgroundColor: "#BC9C59", maxWidth: "400px" }}
+            style={{
+              height: "1px",
+              backgroundColor: "#BC9C59",
+              maxWidth: "400px",
+            }}
           ></div>
         </div>
 
         {/* 網格卡片區 */}
         <div className='row g-4 g-lg-5'>
           {otherTeas.map((otherTea) => (
-            <div key={otherTea.id} className='col-6 col-md-3' onClick={() => setId(otherTea.id)}>
+            <div
+              key={otherTea.id}
+              className='col-6 col-md-3'
+              onClick={() => setId(otherTea.id)}
+            >
               <div className='product-card'>
                 {/* 卡片圖片 */}
-                <div className='w-100 mb-3 overflow-hidden bg-light' style={{ aspectRatio: "3/4" }}>
+                <div
+                  className='w-100 mb-3 overflow-hidden bg-light'
+                  style={{ aspectRatio: "3/4" }}
+                >
                   <img
                     src={otherTea.imageUrl}
                     alt={otherTea.title}
@@ -327,8 +358,12 @@ const ProductsTeaCan = () => {
                       objectFit: "cover",
                       transition: "transform 0.3s ease",
                     }}
-                    onMouseEnter={(e) => (e.target.style.transform = "scale(1.05)")}
-                    onMouseLeave={(e) => (e.target.style.transform = "scale(1)")}
+                    onMouseEnter={(e) =>
+                      (e.target.style.transform = "scale(1.05)")
+                    }
+                    onMouseLeave={(e) =>
+                      (e.target.style.transform = "scale(1)")
+                    }
                   />
                 </div>
 
@@ -341,7 +376,10 @@ const ProductsTeaCan = () => {
                     >
                       {otherTea.title}
                     </h6>
-                    <p className='mb-0 small' style={{ color: "#BC9C59", letterSpacing: "1px" }}>
+                    <p
+                      className='mb-0 small'
+                      style={{ color: "#BC9C59", letterSpacing: "1px" }}
+                    >
                       NT$ {otherTea.price}
                     </p>
                   </div>

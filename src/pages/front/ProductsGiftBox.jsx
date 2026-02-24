@@ -1,10 +1,8 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { API_BASE, API_PATH } from "../../api/config";
 
 import cart from "../../assets/images/Navbar&Footer/cart.png";
-
-const API_BASE = import.meta.env.VITE_API_BASE;
-const API_PATH = import.meta.env.VITE_API_PATH;
 
 const ProductsGiftBox = () => {
   const [products, setProducts] = useState([]);
@@ -30,7 +28,9 @@ const ProductsGiftBox = () => {
   useEffect(() => {
     const getSingleProduct = async () => {
       try {
-        const res = await axios.get(`${API_BASE}/api/${API_PATH}/product/${id}`);
+        const res = await axios.get(
+          `${API_BASE}/api/${API_PATH}/product/${id}`
+        );
         console.log(res.data.product);
         setProduct(res.data.product);
       } catch (error) {
@@ -62,15 +62,29 @@ const ProductsGiftBox = () => {
         product_id: id,
         qty,
       };
-      const res = await axios.post(`${API_BASE}/api/${API_PATH}/cart`, { data });
+      const res = await axios.post(`${API_BASE}/api/${API_PATH}/cart`, {
+        data,
+      });
       console.log(res.data);
     } catch (error) {
       console.error("加入購物車失敗", error);
     }
   };
 
+  // 商品規格資料
+  const productSpecs = [
+    { label: "最佳水溫", value: "95 度 C" },
+    { label: "沖泡時間", value: "3 - 5 分鐘" },
+    { label: "建議茶量", value: "3 - 5 g" },
+  ];
+
+  // 產地資料
+  const origins = ["南投", "桃園", "新竹", "苗栗"];
+
   // 其他禮盒資料
-  const otherGiftBox = products.filter((product) => product.category === "茶禮盒");
+  const otherGiftBox = products.filter(
+    (product) => product.category === "茶禮盒"
+  );
   console.log(otherGiftBox);
 
   return (
@@ -120,7 +134,10 @@ const ProductsGiftBox = () => {
               >
                 {product?.title || "蜜香紅茶禮盒"}
               </h1>
-              <h4 className='mb-4' style={{ color: "#BC9C59", letterSpacing: "1px" }}>
+              <h4
+                className='mb-4'
+                style={{ color: "#BC9C59", letterSpacing: "1px" }}
+              >
                 NT$ {product?.price || 450}
               </h4>
 
@@ -149,7 +166,10 @@ const ProductsGiftBox = () => {
                   >
                     -
                   </button>
-                  <span className='fw-bold fs-5 text-center' style={{ width: "100px" }}>
+                  <span
+                    className='fw-bold fs-5 text-center'
+                    style={{ width: "100px" }}
+                  >
                     {quantity}
                   </span>
                   <button
@@ -185,7 +205,9 @@ const ProductsGiftBox = () => {
                     e.target.style.borderColor = "#D9D9D9";
                     e.target.style.color = "#6c757d";
                   }}
-                  onClick={() => addToCart(product?.id || "-Om-IVUv_TbrBtWnCHgI")}
+                  onClick={() =>
+                    addToCart(product?.id || "-Om-IVUv_TbrBtWnCHgI")
+                  }
                 >
                   <span className='me-2'>
                     <img src={cart} alt='購物車' />
@@ -199,12 +221,19 @@ const ProductsGiftBox = () => {
       </section>
 
       {/* 其他禮盒區塊 */}
-      <section className='container-fluid py-5 mt-5' style={{ backgroundColor: "#FCFCFC" }}>
+      <section
+        className='container-fluid py-5 mt-5'
+        style={{ backgroundColor: "#FCFCFC" }}
+      >
         {/* 帶有水平線的置中標題 */}
         <div className='d-flex align-items-center justify-content-center mt-20 mb-20'>
           <div
             className='flex-grow-1'
-            style={{ height: "1px", backgroundColor: "#BC9C59", maxWidth: "400px" }}
+            style={{
+              height: "1px",
+              backgroundColor: "#BC9C59",
+              maxWidth: "400px",
+            }}
           ></div>
           <div className='text-center px-20'>
             <span
@@ -227,17 +256,28 @@ const ProductsGiftBox = () => {
           </div>
           <div
             className='flex-grow-1'
-            style={{ height: "1px", backgroundColor: "#BC9C59", maxWidth: "400px" }}
+            style={{
+              height: "1px",
+              backgroundColor: "#BC9C59",
+              maxWidth: "400px",
+            }}
           ></div>
         </div>
 
         {/* 網格卡片區 */}
         <div className='row g-4 g-lg-5'>
           {otherGiftBox.map((otherGift) => (
-            <div key={otherGift.id} className='col-6 col-md-3' onClick={() => setId(otherGift.id)}>
+            <div
+              key={otherGift.id}
+              className='col-6 col-md-3'
+              onClick={() => setId(otherGift.id)}
+            >
               <div className='product-card'>
                 {/* 卡片圖片 */}
-                <div className='w-100 mb-3 overflow-hidden bg-light' style={{ aspectRatio: "3/4" }}>
+                <div
+                  className='w-100 mb-3 overflow-hidden bg-light'
+                  style={{ aspectRatio: "3/4" }}
+                >
                   <img
                     src={otherGift.imageUrl}
                     alt={otherGift.title}
@@ -246,8 +286,12 @@ const ProductsGiftBox = () => {
                       objectFit: "cover",
                       transition: "transform 0.3s ease",
                     }}
-                    onMouseEnter={(e) => (e.target.style.transform = "scale(1.05)")}
-                    onMouseLeave={(e) => (e.target.style.transform = "scale(1)")}
+                    onMouseEnter={(e) =>
+                      (e.target.style.transform = "scale(1.05)")
+                    }
+                    onMouseLeave={(e) =>
+                      (e.target.style.transform = "scale(1)")
+                    }
                   />
                 </div>
 
@@ -260,7 +304,10 @@ const ProductsGiftBox = () => {
                     >
                       {otherGift.title}
                     </h6>
-                    <p className='mb-0 small' style={{ color: "#BC9C59", letterSpacing: "1px" }}>
+                    <p
+                      className='mb-0 small'
+                      style={{ color: "#BC9C59", letterSpacing: "1px" }}
+                    >
                       NT$ {otherGift.price}
                     </p>
                   </div>

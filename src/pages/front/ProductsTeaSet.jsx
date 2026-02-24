@@ -1,10 +1,8 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { API_BASE, API_PATH } from "../../api/config";
 
 import cart from "../../assets/images/Navbar&Footer/cart.png";
-
-const API_BASE = import.meta.env.VITE_API_BASE;
-const API_PATH = import.meta.env.VITE_API_PATH;
 
 const ProductsTeaSet = () => {
   const [products, setProducts] = useState([]);
@@ -30,7 +28,9 @@ const ProductsTeaSet = () => {
   useEffect(() => {
     const getSingleProduct = async () => {
       try {
-        const res = await axios.get(`${API_BASE}/api/${API_PATH}/product/${id}`);
+        const res = await axios.get(
+          `${API_BASE}/api/${API_PATH}/product/${id}`
+        );
         console.log(res.data.product);
         setProduct(res.data.product);
       } catch (error) {
@@ -62,7 +62,9 @@ const ProductsTeaSet = () => {
         product_id: id,
         qty,
       };
-      const res = await axios.post(`${API_BASE}/api/${API_PATH}/cart`, { data });
+      const res = await axios.post(`${API_BASE}/api/${API_PATH}/cart`, {
+        data,
+      });
       console.log(res.data);
     } catch (error) {
       console.error("加入購物車失敗", error);
@@ -70,7 +72,9 @@ const ProductsTeaSet = () => {
   };
 
   // 其他茶具資料
-  const otherTeaSets = products.filter((product) => product.category === "茶具");
+  const otherTeaSets = products.filter(
+    (product) => product.category === "茶具"
+  );
   console.log(otherTeaSets);
 
   return (
@@ -106,7 +110,10 @@ const ProductsTeaSet = () => {
               >
                 {product?.tiele || "銀索流光 · 歲月獨白"}
               </h1>
-              <h4 className='mb-4' style={{ color: "#BC9C59", letterSpacing: "1px" }}>
+              <h4
+                className='mb-4'
+                style={{ color: "#BC9C59", letterSpacing: "1px" }}
+              >
                 NT$ {product?.price || 450}
               </h4>
 
@@ -135,7 +142,10 @@ const ProductsTeaSet = () => {
                   >
                     -
                   </button>
-                  <span className='fw-bold fs-5 text-center' style={{ width: "100px" }}>
+                  <span
+                    className='fw-bold fs-5 text-center'
+                    style={{ width: "100px" }}
+                  >
                     {quantity}
                   </span>
                   <button
@@ -171,7 +181,9 @@ const ProductsTeaSet = () => {
                     e.target.style.borderColor = "#D9D9D9";
                     e.target.style.color = "#6c757d";
                   }}
-                  onClick={() => addToCart(product?.id || "-Om-JC4ovThJxwvnElzo")}
+                  onClick={() =>
+                    addToCart(product?.id || "-Om-JC4ovThJxwvnElzo")
+                  }
                 >
                   <span className='me-2'>
                     <img src={cart} alt='購物車' />
@@ -257,7 +269,10 @@ const ProductsTeaSet = () => {
       </section>
 
       {/* 其他茶具區塊 */}
-      <section className='container-fluid py-5 mt-5' style={{ backgroundColor: "#FCFCFC" }}>
+      <section
+        className='container-fluid py-5 mt-5'
+        style={{ backgroundColor: "#FCFCFC" }}
+      >
         {/* 帶有水平線的置中標題 */}
         <div className='d-flex align-items-center justify-content-center mt-20 mb-20'>
           <div
@@ -307,7 +322,10 @@ const ProductsTeaSet = () => {
             >
               <div className='product-card'>
                 {/* 卡片圖片 */}
-                <div className='w-100 mb-3 overflow-hidden bg-light' style={{ aspectRatio: "3/4" }}>
+                <div
+                  className='w-100 mb-3 overflow-hidden bg-light'
+                  style={{ aspectRatio: "3/4" }}
+                >
                   <img
                     src={otherTeaSet.imageUrl}
                     alt={otherTeaSet.title}
@@ -316,8 +334,12 @@ const ProductsTeaSet = () => {
                       objectFit: "cover",
                       transition: "transform 0.3s ease",
                     }}
-                    onMouseEnter={(e) => (e.target.style.transform = "scale(1.05)")}
-                    onMouseLeave={(e) => (e.target.style.transform = "scale(1)")}
+                    onMouseEnter={(e) =>
+                      (e.target.style.transform = "scale(1.05)")
+                    }
+                    onMouseLeave={(e) =>
+                      (e.target.style.transform = "scale(1)")
+                    }
                   />
                 </div>
 
@@ -330,7 +352,10 @@ const ProductsTeaSet = () => {
                     >
                       {otherTeaSet.title}
                     </h6>
-                    <p className='mb-0 small' style={{ color: "#BC9C59", letterSpacing: "1px" }}>
+                    <p
+                      className='mb-0 small'
+                      style={{ color: "#BC9C59", letterSpacing: "1px" }}
+                    >
                       NT$ {otherTeaSet.price}
                     </p>
                   </div>
