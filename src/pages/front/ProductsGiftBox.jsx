@@ -150,6 +150,53 @@ const ProductsGiftBox = () => {
                   "在這片純淨的茶園裡，我們等待一場美麗的邂逅。茶葉經由小綠葉蟬的輕柔叮咬（著涎），在大自然的轉化下，意外開啟了封存於葉片中的天然蜜香。無需加糖，茶湯流轉間便自帶淡雅的蜂蜜甜韻與熟果香氣。這份禮物，是生態與茶樹共譜的甜蜜樂章，獻給生活裡始終保持溫柔的你。"}
               </p>
 
+              {/* 規格列表 */}
+              <div className='mb-5'>
+                {productSpecs.map((spec, index) => (
+                  <div key={index} className='d-flex mb-2 align-items-center'>
+                    <span
+                      className='text-secondary small'
+                      style={{ width: "80px", letterSpacing: "2px" }}
+                    >
+                      {spec.label}
+                    </span>
+                    <span
+                      className='text-dark small'
+                      style={{ letterSpacing: "1px" }}
+                    >
+                      {spec.value}
+                    </span>
+                  </div>
+                ))}
+
+                {/* 產地標籤 */}
+                <div className='d-flex align-items-center mt-3'>
+                  <span
+                    className='text-secondary small'
+                    style={{ width: "80px", letterSpacing: "2px" }}
+                  >
+                    種植產地
+                  </span>
+                  <div className='d-flex gap-2 flex-wrap'>
+                    {origins.map((origin, index) => (
+                      <span
+                        key={index}
+                        className='px-2 py-1'
+                        style={{
+                          backgroundColor: "#EEF3F0",
+                          color: "#4A6B58",
+                          fontSize: "0.75rem",
+                          letterSpacing: "1px",
+                          borderRadius: "2px",
+                        }}
+                      >
+                        {origin}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
               {/* 購買操作區 */}
               <div className='d-flex align-items-center gap-4'>
                 {/* 數量選擇器 */}
