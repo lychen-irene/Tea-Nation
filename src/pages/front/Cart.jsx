@@ -2,8 +2,11 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { currency } from "../../utils/currency";
 
-const API_BASE = import.meta.env.VITE_API_BASE;
-const API_PATH = import.meta.env.VITE_API_PATH;
+import minusIcon from "../../assets/images/Cart/minus.svg";
+import plusIcon from "../../assets/images/Cart/plus.svg";
+import trashcanIcon from "../../assets/images/Cart/trashcan.svg";
+
+import { API_BASE, API_PATH } from "../../api/config";
 
 const Cart = () => {
   const [cart, setCart] = useState([]);
@@ -85,74 +88,89 @@ const Cart = () => {
             </div>
           ))}
         </div>
-        <div className="text-end mt-4">
-          <button
-            type="button"
-            className="btn btn-outline-danger"
-            onClick={() => deleteCartAll()}
-          >
-            清空購物車
-          </button>
-        </div>
-        <table className="table">
-          <thead className="cart-list-heading">
-            <tr>
-              <th scope="col"></th>
-              <th scope="col">商品名稱</th>
-              <th scope="col">商品小計</th>
-              <th scope="col">數量</th>
-            </tr>
-          </thead>
-          <tbody>
+
+        <div className="cart-list__body">
+          <div className="cart-list__top">
+            <span>商品名稱</span>
+            <span className="cart-list__col--hidden"></span>
+            <span>商品小計</span>
+            <span className="text-start">數量</span>
+          </div>
+          <div className="cart-list__list">
             {cart?.carts?.map((cartItem) => (
-              <tr key={cartItem.id}>
-                <td>
-                  <button
-                    type="button"
-                    className="btn btn-outline-danger btn-sm"
-                    onClick={() => deleteCart(cartItem.id)}
-                  >
-                    刪除
-                  </button>
-                </td>
-                <th scope="row">{cartItem.product.title}</th>
-                <td>
-                  <div className="input-group input-group-sm mb-3">
-                    <input
-                      type="number"
-                      className="form-control"
-                      aria-label="Sizing example input"
-                      aria-describedby="inputGroup-sizing-sm"
-                      defaultValue={cartItem.qty}
-                      onChange={(e) =>
+              <div className="cart-card" key={cartItem.id}>
+                <div className="cart-card__img">
+                  <img
+                    src={cartItem.product.imageUrl}
+                    alt={cartItem.product.title}
+                  />
+                  {cartItem.product.coupon_enabled === 1 ? (
+                    <span className="cart-card__tag">
+                      已符合單品項 9 折優惠
+                    </span>
+                  ) : (
+                    <span></span>
+                  )}
+                </div>
+                <div className="cart-card__info">
+                  <p className="cart-card__name">{cartItem.product.title}</p>
+                  <div className="cart-card__price-row">
+                    <span className="cart-card__price--current">
+                      NT${currency(cartItem.product.price)}
+                    </span>
+                    {cartItem.product.origin_price > cartItem.product.price && (
+                      <span className="cart-card__price--origin">
+                        {currency(cartItem.product.origin_price)}
+                      </span>
+                    )}
+                  </div>
+                </div>
+                <div className="cart-card__subtotal">
+                  NT${currency(cartItem.final_total)}
+                </div>
+                <div className="cart-card__tail">
+                  <div className="counter">
+                    <button
+                      type="button"
+                      className="counter__btn"
+                      disabled={cartItem.qty <= 1}
+                      onClick={() =>
                         updateCart(
                           cartItem.id,
                           cartItem.product_id,
-                          Number(e.target.value),
+                          cartItem.qty - 1,
                         )
                       }
-                    />
-                    <span
-                      className="input-group-text"
-                      id="inputGroup-sizing-sm"
                     >
-                      {cartItem.product.unit}
-                    </span>
+                      <img src={minusIcon} alt="minus" />
+                    </button>
+                    <span className="counter__qty">{cartItem.qty}</span>
+                    <button
+                      type="button"
+                      className="counter__btn"
+                      onClick={() =>
+                        updateCart(
+                          cartItem.id,
+                          cartItem.product_id,
+                          cartItem.qty + 1,
+                        )
+                      }
+                    >
+                      <img src={plusIcon} alt="plus" />
+                    </button>
                   </div>
-                </td>
-                <td className="text-end">{currency(cartItem.final_total)}</td>
-              </tr>
+                  <button
+                    type="button"
+                    className="cart-card__delete"
+                    onClick={() => deleteCart(cartItem.id)}
+                  >
+                    <img src={trashcanIcon} alt="delete" />
+                  </button>
+                </div>
+              </div>
             ))}
-          </tbody>
-          <tfoot>
-            <tr>
-              <td className="text-end" colSpan="3">
-                總計
-              </td>
-              <td className="text-end">{currency(cart?.final_total)}</td>
-            </tr>
-          </tfoot>
-        </table>
+          </div>
+        </div>
       </div>
     </>
   );
