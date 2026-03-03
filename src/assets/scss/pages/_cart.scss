@@ -1,0 +1,287 @@
+/* 購物車 */
+.stepper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 56px 40px;
+  width: 100%;
+  height: 125px;
+}
+
+.step-item {
+  position: relative;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+/* 左線 */
+.step-item::before {
+  content: "";
+  position: absolute;
+  top: 28px;
+  left: 0;
+  right: calc(50% + 28px);
+  height: 1px;
+  background: #e5e5e5;
+}
+
+/* 右線 */
+.step-item::after {
+  content: "";
+  position: absolute;
+  top: 28px;
+  left: calc(50% + 28px);
+  right: 0;
+  height: 1px;
+  background: #e5e5e5;
+}
+
+/* 第一個 step 沒有左線 */
+.step-item:first-child::before {
+  display: none;
+}
+
+/* 最後一個 step 沒有右線 */
+.step-item:last-child::after {
+  display: none;
+}
+
+.step-label-EN {
+  white-space: nowrap;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 120%;
+  color: #bc9c59;
+}
+
+.step-label-ZH {
+  white-space: nowrap;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 28px;
+  line-height: 120%;
+}
+
+.step-num {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 1000px;
+  border: 1px solid #e5e5e5;
+  color: #404040;
+  font-weight: 700;
+  font-size: 28px;
+}
+
+.step-num--active {
+  background: #bc9c59;
+  border: none;
+  color: #ffffff;
+}
+
+// ── 商品列表區 ──────────────────────────────────────────
+.cart-list__body {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+  max-width: 1076px;
+  margin: 0 auto;
+}
+
+.cart-list__top {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 16px 0;
+  gap: 24px;
+  border-bottom: 1px solid #e5e5e5;
+
+  span {
+    flex: 1;
+    font-family: "Noto Serif TC";
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 150%;
+    letter-spacing: 0.04em;
+    color: #737373;
+
+    &:first-child {
+      flex: none;
+      width: 196px;
+    }
+  }
+
+  .cart-list__col--hidden {
+    opacity: 0;
+  }
+}
+
+.cart-list__list {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+// ── cart-card ───────────────────────────────────────────
+.cart-card {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 24px;
+  height: 269px;
+
+  &__img {
+    position: relative;
+    flex: none;
+    width: 196px;
+    height: 269px;
+    overflow: hidden;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  &__tag {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 4px 12px;
+    background: #0b4134;
+    font-family: "Noto Sans TC";
+    font-size: 14px;
+    line-height: 150%;
+    letter-spacing: 0.04em;
+    color: #ffffff;
+    text-align: center;
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 8px;
+    flex: 1;
+  }
+
+  &__name {
+    margin: 0;
+    font-family: "Noto Serif TC";
+    font-weight: 700;
+    font-size: 28px;
+    line-height: 120%;
+    letter-spacing: 0.02em;
+    color: #404040;
+  }
+
+  &__price-row {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    gap: 8px;
+  }
+
+  &__price {
+    &--current {
+      font-family: "Noto Serif TC";
+      font-weight: 700;
+      font-size: 20px;
+      line-height: 120%;
+      letter-spacing: 0.02em;
+      color: #bc9c59;
+    }
+
+    &--origin {
+      font-family: "Noto Serif TC";
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 150%;
+      letter-spacing: 0.04em;
+      text-decoration: line-through;
+      color: #a3a3a3;
+    }
+  }
+
+  &__subtotal {
+    flex: 1;
+    font-family: "Noto Serif TC";
+    font-weight: 700;
+    font-size: 28px;
+    line-height: 120%;
+    letter-spacing: 0.02em;
+    color: #404040;
+  }
+
+  &__tail {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 24px;
+    flex: 1;
+  }
+
+  &__delete {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 48px;
+    height: 48px;
+    border: 0.8px solid #404040;
+    border-radius: 1000px;
+    background: transparent;
+    cursor: pointer;
+    font-size: 20px;
+  }
+}
+
+// ── counter ────────────────────────────────────────────
+.counter {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+
+  &__btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 48px;
+    height: 48px;
+    border: 0.8px solid #404040;
+    border-radius: 1000px;
+    background: transparent;
+    cursor: pointer;
+    font-size: 20px;
+
+    &:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+  }
+
+  &__qty {
+    flex: 1;
+    text-align: center;
+    font-family: "Noto Serif TC";
+    font-weight: 700;
+    font-size: 28px;
+    line-height: 120%;
+    letter-spacing: 0.02em;
+    color: #404040;
+  }
+}
