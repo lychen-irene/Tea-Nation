@@ -1,0 +1,96 @@
+/* 付款資訊 */
+.order-stepper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 56px 40px;
+  width: 100%;
+  height: 125px;
+}
+
+.order-step-item {
+  position: relative;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+/* 左線 */
+.order-step-item::before {
+  content: "";
+  position: absolute;
+  top: 28px;
+  left: 0;
+  right: calc(50% + 28px);
+  height: 1px;
+  background: #e5e5e5;
+}
+
+/* 右線 */
+.order-step-item::after {
+  content: "";
+  position: absolute;
+  top: 28px;
+  left: calc(50% + 28px);
+  right: 0;
+  height: 1px;
+  background: #e5e5e5;
+}
+
+/* 第一個 step 沒有左線 */
+.order-step-item:first-child::before {
+  display: none;
+}
+
+/* 最後一個 step 沒有右線 */
+.order-step-item:last-child::after {
+  display: none;
+}
+
+/* 已完成的 step：左右線都金色 */
+.order-step-item--passed::before,
+.order-step-item--passed::after,
+/* 目前 step：左線金色 */
+.order-step-item--active::before {
+  background: #bc9c59;
+}
+
+.order-step-label-EN {
+  white-space: nowrap;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 120%;
+  color: #bc9c59;
+}
+
+.order-step-label-ZH {
+  white-space: nowrap;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 28px;
+  line-height: 120%;
+}
+
+.order-step-num {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 1000px;
+  border: 1px solid #e5e5e5;
+  color: #404040;
+  font-weight: 700;
+  font-size: 28px;
+}
+
+.order-step-num--active {
+  background: #bc9c59;
+  border: none;
+  color: #ffffff;
+}
