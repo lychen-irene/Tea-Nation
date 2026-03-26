@@ -2,9 +2,15 @@ import slideImage7 from "../../assets/images/Home/slide7.png";
 import iconRight from "../../assets/images/Home/icon-right.svg";
 
 const blogCards = [
-  { date: "2026 . 08 . 03", dishName: "淺焙與深焙：哪一款最能安撫你午後的疲憊？" },
+  {
+    date: "2026 . 08 . 03",
+    dishName: "淺焙與深焙：哪一款最能安撫你午後的疲憊？",
+  },
   { date: "2026 . 08 . 03", dishName: "不再失眠：適合晚間飲用的低咖啡因茶選" },
-  { date: "2026 . 08 . 03", dishName: "淺焙與深焙：哪一款最能安撫你午後的疲憊？" },
+  {
+    date: "2026 . 08 . 03",
+    dishName: "淺焙與深焙：哪一款最能安撫你午後的疲憊？",
+  },
   { date: "2026 . 08 . 03", dishName: "不再失眠：適合晚間飲用的低咖啡因茶選" },
 ];
 

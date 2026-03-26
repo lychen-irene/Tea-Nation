@@ -101,6 +101,48 @@ p {
   transform: translateX(0);
 }
 
+/* ========== 關於品牌：深綠色區塊 RWD 設定 ========== */
+
+/* 電腦版 (>= 992px)：維持垂直分隔線 */
+@media (min-width: 992px) {
+  .brand-feature-col {
+    border-right: 1px solid rgba(188, 156, 89, 0.3);
+    min-height: 450px;
+  }
+  .brand-feature-col:last-child {
+    border-right: none;
+  }
+}
+
+/* 手機與平板版 (< 992px)：垂直堆疊、標題與內文並排 */
+@media (max-width: 991.98px) {
+  /* 標題區塊靠左 */
+  .brand-tagline-title, .brand-tagline-desc {
+    text-align: left !important;
+  }
+  .brand-tagline-desc {
+    margin-top: 1.5rem !important;
+  }
+
+  /* 特色區塊改為上下堆疊與水平分隔線 */
+  .brand-feature-col {
+    border-right: none !important;
+    border-bottom: 1px solid rgba(188, 156, 89, 0.3);
+    min-height: auto !important;
+    padding-top: 4rem !important;
+    padding-bottom: 4rem !important;
+  }
+  .brand-feature-col:last-child {
+    border-bottom: none !important;
+  }
+
+  /* 讓內部 Flex 容器左右拉開距離 */
+  .feature-flex-container {
+    justify-content: space-evenly !important;
+  }
+
+}
+
 /* admin */
 /* AdminLayout 主要容器 */
 .admin-main {

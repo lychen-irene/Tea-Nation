@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 import iconRight from "../../assets/images/Home/icon-right.svg";
 import sec3Card from "../../assets/images/Home/sec3Card.jpg";
 import sec4Card from "../../assets/images/Home/sec4Card.png";
@@ -16,9 +18,17 @@ export default function Sec34() {
               <p className="sec34-name">看不見的地方，依然講究</p>
             </div>
           </div>
-          <button className="icon-button-outline" type="button">
+          <Link
+            to={"/aboutUs"}
+            className="icon-button-outline"
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
             <img src={iconRight} alt="arrow-right" />
-          </button>
+          </Link>
         </div>
         <div className="sec34-body">
           <p className="sec34-body-name">每一片抵達您杯中的茶葉，</p>
@@ -36,9 +46,17 @@ export default function Sec34() {
               <p className="sec34-name">待客之道，是先款待自己</p>
             </div>
           </div>
-          <button className="icon-button-outline" type="button">
+          <Link
+            to={"/knowledge"}
+            className="icon-button-outline"
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
             <img src={iconRight} alt="arrow-right" />
-          </button>
+          </Link>
         </div>
         <div className="sec34-body">
           <p className="sec34-body-name">生活的節奏可以很快，</p>
