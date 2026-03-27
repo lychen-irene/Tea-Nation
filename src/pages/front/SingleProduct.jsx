@@ -173,7 +173,7 @@ const SingleProduct = () => {
 
             {/* 沖泡參數 */}
             <div
-              className="mb-4 small text-secondary"
+              className="small text-secondary my-12"
               style={{ letterSpacing: "1px" }}
             >
               <div className="d-flex mb-2">
