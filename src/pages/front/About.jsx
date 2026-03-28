@@ -145,10 +145,11 @@ const About = () => {
         >
           {/* 上半部：Brand Tagline */}
           <div
-            className="row align-items-end mb-0 py-15"
+            className="row align-items-end mb-0 py-5 py-lg-15"
             style={{ borderBottom: "1px solid rgba(188, 156, 89, 0.3)" }}
           >
-            <div className="col-md-6 text-md-start px-20">
+            {/* RWD: 改為 col-lg-6 讓手機版堆疊，並加上自定義 class 方便 CSS 控制靠左 */}
+            <div className="col-12 col-lg-6 text-md-start px-4 px-lg-20 brand-tagline-title">
               <h2
                 className="display-5 mb-0"
                 style={{ fontFamily: "serif", letterSpacing: "2px" }}
@@ -165,9 +166,9 @@ const About = () => {
                 Brand Tagline
               </h2>
             </div>
-            <div className="col-md-6 text-md-end mt-4 mt-md-0 align-self-center">
+            <div className="col-12 col-lg-6 text-md-end align-self-center px-4 px-lg-10 brand-tagline-desc">
               <p
-                className="small mb-0 lh-lg opacity-75 px-10"
+                className="small mb-0 lh-lg opacity-75"
                 style={{ letterSpacing: "1px" }}
               >
                 以精品級工藝，重新定義台灣茶的新高度
@@ -179,20 +180,36 @@ const About = () => {
 
           {/* 下半部 */}
           <div className="row g-0">
-            {features.map((feature, index) => (
+            {features.map((feature) => (
               <div
                 key={feature.id}
-                className="col-md-4 py-5 brand-feature-col position-relative"
-                style={{
-                  borderRight:
-                    index !== features.length - 1
-                      ? "1px solid rgba(188, 156, 89, 0.3)"
-                      : "none",
-                  minHeight: "450px",
-                }}
+                /* RWD: 改為 col-lg-4，並移除 inline style 的 borderRight */
+                className="col-12 col-lg-4 py-5 brand-feature-col position-relative"
               >
-                <div className="d-flex h-100 w-100 align-items-center justify-content-center position-relative">
-                  {/* 詳細內文 */}
+                {/* 加上 feature-flex-container 讓 CSS 可以在手機版排版 */}
+                <div className="d-flex h-100 w-100 align-items-center justify-content-center position-relative feature-flex-container">
+                  {/* 【重點修改 1】：將標題放到前面，這樣手機版自然會在左邊 */}
+                  <div className="title-group d-flex align-items-start">
+                    <h5
+                      className="vertical-text fw-bold"
+                      style={{ letterSpacing: "4px" }}
+                    >
+                      {feature.title}
+                      <p
+                        className="vertical-text me-3"
+                        style={{
+                          color: "#BC9C59",
+                          letterSpacing: "2px",
+                          fontSize: "0.85rem",
+                          marginTop: "-90%",
+                        }}
+                      >
+                        {feature.eng}
+                      </p>
+                    </h5>
+                  </div>
+
+                  {/* 【重點修改 2】：將詳細內文放到後面，電腦版依然透過 right: "12%" 固定在右側 */}
                   <div
                     className="details-group position-absolute d-flex align-items-center h-100"
                     style={{ right: "12%" }}
@@ -210,29 +227,6 @@ const About = () => {
                         ))}
                       </p>
                     </div>
-                  </div>
-
-                  {/* 標題與英文 */}
-                  <div className="title-group d-flex align-items-start">
-                    {/* 右側：中文標題 */}
-                    <h5
-                      className="vertical-text fw-bold"
-                      style={{ letterSpacing: "4px" }}
-                    >
-                      {feature.title}
-                      {/* 左側：英文標題 */}
-                      <p
-                        className="vertical-text me-3"
-                        style={{
-                          color: "#BC9C59",
-                          letterSpacing: "2px",
-                          fontSize: "0.85rem",
-                          marginTop: "-90%",
-                        }}
-                      >
-                        {feature.eng}
-                      </p>
-                    </h5>
                   </div>
                 </div>
               </div>

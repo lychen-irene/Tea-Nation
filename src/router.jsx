@@ -12,6 +12,7 @@ import Knowledge from "./pages/front/Knowledge";
 import ProductsTeaCan from "./pages/front/ProductsTeaCan";
 import ProductsGiftBox from "./pages/front/ProductsGiftBox";
 import ProductsTeaSet from "./pages/front/ProductsTeaSet";
+import SingleProduct from "./pages/front/SingleProduct";
 import Cart from "./pages/front/Cart";
 import OderInformation from "./pages/front/OderInformation";
 import Login from "./pages/front/Login";
@@ -52,6 +53,10 @@ export const router = createHashRouter([
       {
         path: "productsTeaSet",
         element: <ProductsTeaSet />,
+      },
+      {
+        path: "product/:id",
+        element: <SingleProduct />,
       },
       {
         path: "cart",

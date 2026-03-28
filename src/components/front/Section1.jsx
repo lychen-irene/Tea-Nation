@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 import slideImage4 from "../../assets/images/Home/slide4.png";
 import slideImage5 from "../../assets/images/Home/slide5.png";
 import slideImage6 from "../../assets/images/Home/slide6.png";
@@ -8,16 +10,19 @@ const cards = [
     title: "品茶",
     text: "探尋山林的呼吸，品味最純粹的風土。讓每一口茶湯的回甘，撫平日常的焦慮與繁忙。",
     image: slideImage4,
+    link: "/productsTeaCan",
   },
   {
     title: "禮盒",
     text: "將生活的美好妥善包裝。簡約不張揚的設計，讓您的祝福隨茶香溫暖傳遞。",
     image: slideImage5,
+    link: "/ProductsGiftBox",
   },
   {
     title: "茶具",
     text: "觸摸職人手心的溫度。好的器物不僅是工具，更是讓茶湯釋放深層靈魂的關鍵。",
     image: slideImage6,
+    link: "/ProductsTeaSet",
   },
 ];
 
@@ -47,9 +52,17 @@ export default function Sec1() {
               </div>
               <div className="sec1-card-footer">
                 <p className="sec1-card-text">{card.text}</p>
-                <button className="sec1-icon-button" type="button">
+                <Link
+                  to={card.link}
+                  className="sec1-icon-button"
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
                   <img src={iconRight} alt="arrow-right" />
-                </button>
+                </Link>
               </div>
             </div>
           </div>
