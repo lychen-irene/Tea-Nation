@@ -168,6 +168,14 @@
     text-align: center;
   }
 
+  &__content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 24px;
+    flex: 1;
+  }
+
   &__info {
     display: flex;
     flex-direction: column;
@@ -455,5 +463,98 @@
     line-height: 120%;
     letter-spacing: 0.02em;
     color: #404040;
+  }
+}
+
+// ── Mobile ──────────────────────────────────────────────
+@media (max-width: 767px) {
+  .stepper {
+    margin: 32px 0;
+    height: auto;
+  }
+
+  .step-item::before,
+  .step-item::after {
+    top: 20px;
+  }
+
+  .step-num {
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+  }
+
+  .step-label-EN {
+    font-size: 14px;
+  }
+
+  .step-label-ZH {
+    font-size: 20px;
+  }
+
+  .cart-list__top {
+    span:not(:first-child) {
+      display: none;
+    }
+  }
+
+  .cart-card {
+    height: auto;
+    gap: 12px;
+    align-items: stretch;
+
+    &__img {
+      width: 170px;
+      height: 233px;
+    }
+
+    &__content {
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    &__name {
+      font-size: 24px;
+    }
+
+    &__subtotal {
+      font-size: 24px;
+    }
+
+    &__tail {
+      gap: 12px;
+    }
+
+    &__delete {
+      width: 40px;
+      height: 40px;
+    }
+  }
+
+  .counter {
+    &__btn {
+      width: 40px;
+      height: 40px;
+    }
+
+    &__qty {
+      font-size: 24px;
+    }
+  }
+
+  .cart-summary {
+    margin: 28px 0;
+    gap: 24px;
+
+    &__body {
+      flex-direction: column;
+      padding: 0;
+      gap: 8px;
+    }
+
+    &__row {
+      padding: 0;
+    }
   }
 }
