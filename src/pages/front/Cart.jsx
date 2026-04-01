@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { useOutletContext, Link } from "react-router-dom";
 import axios from "axios";
 import { currency } from "../../utils/currency";
 
@@ -13,6 +13,7 @@ import { API_BASE, API_PATH } from "../../api/config";
 
 const Cart = () => {
   const [cart, setCart] = useState([]);
+  const { setCartCount } = useOutletContext();
   // currentStep state
   const steps = [
     { num: 1, labelEN: "Cart List", labelZH: "購物清單" },
@@ -27,6 +28,7 @@ const Cart = () => {
       const url = `${API_BASE}/api/${API_PATH}/cart`;
       const response = await axios.get(url);
       setCart(response.data.data);
+      setCartCount(response.data.data.carts?.length ?? 0);
     } catch (error) {
       console.log(error.response.data);
     }
@@ -116,61 +118,65 @@ const Cart = () => {
                       <span></span>
                     )}
                   </div>
-                  <div className="cart-card__info">
-                    <p className="cart-card__name">{cartItem.product.title}</p>
-                    <div className="cart-card__price-row">
-                      <span className="cart-card__price--current">
-                        NT${currency(cartItem.product.price)}
-                      </span>
-                      {cartItem.product.origin_price >
-                        cartItem.product.price && (
-                        <span className="cart-card__price--origin">
-                          {currency(cartItem.product.origin_price)}
+                  <div className="cart-card__content">
+                    <div className="cart-card__info">
+                      <p className="cart-card__name">
+                        {cartItem.product.title}
+                      </p>
+                      <div className="cart-card__price-row">
+                        <span className="cart-card__price--current">
+                          NT${currency(cartItem.product.price)}
                         </span>
-                      )}
+                        {cartItem.product.origin_price >
+                          cartItem.product.price && (
+                          <span className="cart-card__price--origin">
+                            {currency(cartItem.product.origin_price)}
+                          </span>
+                        )}
+                      </div>
                     </div>
-                  </div>
-                  <div className="cart-card__subtotal">
-                    NT${currency(cartItem.final_total)}
-                  </div>
-                  <div className="cart-card__tail">
-                    <div className="counter">
+                    <div className="cart-card__subtotal">
+                      NT${currency(cartItem.final_total)}
+                    </div>
+                    <div className="cart-card__tail">
+                      <div className="counter">
+                        <button
+                          type="button"
+                          className="counter__btn"
+                          disabled={cartItem.qty <= 1}
+                          onClick={() =>
+                            updateCart(
+                              cartItem.id,
+                              cartItem.product_id,
+                              cartItem.qty - 1,
+                            )
+                          }
+                        >
+                          <img src={minusIcon} alt="minus" />
+                        </button>
+                        <span className="counter__qty">{cartItem.qty}</span>
+                        <button
+                          type="button"
+                          className="counter__btn"
+                          onClick={() =>
+                            updateCart(
+                              cartItem.id,
+                              cartItem.product_id,
+                              cartItem.qty + 1,
+                            )
+                          }
+                        >
+                          <img src={plusIcon} alt="plus" />
+                        </button>
+                      </div>
                       <button
                         type="button"
-                        className="counter__btn"
-                        disabled={cartItem.qty <= 1}
-                        onClick={() =>
-                          updateCart(
-                            cartItem.id,
-                            cartItem.product_id,
-                            cartItem.qty - 1,
-                          )
-                        }
+                        className="cart-card__delete"
+                        onClick={() => deleteCart(cartItem.id)}
                       >
-                        <img src={minusIcon} alt="minus" />
-                      </button>
-                      <span className="counter__qty">{cartItem.qty}</span>
-                      <button
-                        type="button"
-                        className="counter__btn"
-                        onClick={() =>
-                          updateCart(
-                            cartItem.id,
-                            cartItem.product_id,
-                            cartItem.qty + 1,
-                          )
-                        }
-                      >
-                        <img src={plusIcon} alt="plus" />
+                        <img src={trashcanIcon} alt="delete" />
                       </button>
                     </div>
-                    <button
-                      type="button"
-                      className="cart-card__delete"
-                      onClick={() => deleteCart(cartItem.id)}
-                    >
-                      <img src={trashcanIcon} alt="delete" />
-                    </button>
                   </div>
                 </div>
               ))}
