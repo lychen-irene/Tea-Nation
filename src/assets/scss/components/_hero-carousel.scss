@@ -142,18 +142,30 @@
     .caption-align-center {
       .caption-content {
         right: 38.12%;  // 預設置中
+        @media (max-width: 767.98px) {
+          right: auto;
+        }
       }
       .caption-bottom {
         right: 45.29%;  // 預設置中
+        @media (max-width: 767.98px) {
+          right: auto;
+        }
       }
     }
 
     .caption-align-right {
       .caption-content {
         right: 5%;
+        @media (max-width: 767.98px) {
+          right: auto;
+        }
       }
       .caption-bottom {
         right: 12%;
+        @media (max-width: 767.98px) {
+          right: auto;
+        }
       }
     }
 
@@ -161,10 +173,16 @@
       .caption-content {
         right: auto;
         left: 5%;
+        @media (max-width: 767.98px) {
+          left: 50%;
+        }
       }
       .caption-bottom {
         right: auto;
         left: 5%;
+        @media (max-width: 767.98px) {
+          left: 50%;
+        }
       }
     }
 
