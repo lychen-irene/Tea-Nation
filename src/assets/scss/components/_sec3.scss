@@ -14,7 +14,7 @@
 // Section — 960 x 739
 // ========================================
 .sec34-section {
-  width: clamp(480px, 50vw, 960px);                  // 960/1920
+  width: min(50%, 960px);                            // 960/1920, no min to prevent overflow
   min-height: clamp(369.5px, 38.49vw, 739px);        // 739/1920
   padding-top: clamp(50px, 5.208vw, 100px);           // 100/1920
   padding-bottom: clamp(50px, 5.208vw, 100px);        // 100/1920
