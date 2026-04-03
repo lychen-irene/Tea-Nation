@@ -1,396 +1,178 @@
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import Swal from "sweetalert2";
+
+import cartIcon from "../../assets/images/Navbar&Footer/cart.png";
 import { API_BASE, API_PATH } from "../../api/config";
 
-import cart from "../../assets/images/Navbar&Footer/cart.png";
+const ProductsTeaCan = () => {
+  const [teaSet, setTeaGiftBoxSet] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-const ProductsTeaSet = () => {
-  const [products, setProducts] = useState([]);
-  const [id, setId] = useState(null);
-  const [product, setProduct] = useState(null);
-
-  // 取得其他茶具列表
   useEffect(() => {
-    const getProduct = async () => {
+    const fetchTeaCans = async () => {
+      setIsLoading(true);
       try {
-        const res = await axios.get(`${API_BASE}/api/${API_PATH}/products`);
-        console.log(res.data.products);
-        setProducts(res.data.products);
+        const res = await axios.get(`${API_BASE}/api/${API_PATH}/products/all`);
+        if (res.data.success) {
+          const allProducts = res.data.products || [];
+
+          const filteredCans = allProducts.filter(
+            (item) => item.category === "茶具",
+          );
+
+          setTeaGiftBoxSet(filteredCans);
+        }
       } catch (error) {
-        console.error("取得產品資料失敗", error);
+        console.error("載入茶葉罐列表失敗", error);
+      } finally {
+        setIsLoading(false);
+        window.scrollTo(0, 0);
       }
     };
 
-    getProduct();
+    fetchTeaCans();
   }, []);
 
-  // 取得產品詳細資料
-  useEffect(() => {
-    const getSingleProduct = async () => {
-      try {
-        const res = await axios.get(
-          `${API_BASE}/api/${API_PATH}/product/${id}`
-        );
-        console.log(res.data.product);
-        setProduct(res.data.product);
-      } catch (error) {
-        console.error("取得產品資料失敗", error);
-      }
-    };
-    getSingleProduct();
-  }, [id]);
-
-  // 購買數量狀態
-  const [quantity, setQuantity] = useState(1);
-
-  // 減少數量
-  const decreaseQuantity = () => {
-    if (quantity > 1) {
-      setQuantity(quantity - 1);
-    }
-  };
-
-  // 增加數量
-  const increaseQuantity = () => {
-    setQuantity(quantity + 1);
-  };
-
-  // 加入購物車
-  const addToCart = async (id, qty = 1) => {
+  const addToCart = async (productId) => {
     try {
-      const data = {
-        product_id: id,
-        qty,
-      };
-      const res = await axios.post(`${API_BASE}/api/${API_PATH}/cart`, {
-        data,
+      await axios.post(`${API_BASE}/api/${API_PATH}/cart`, {
+        data: {
+          product_id: productId,
+          qty: 1,
+        },
       });
-      console.log(res.data);
+      Swal.fire({
+        title: "已加入購物車",
+        icon: "success",
+        timer: 1500,
+        showConfirmButton: false,
+      });
     } catch (error) {
-      console.error("加入購物車失敗", error);
+      Swal.fire(
+        "加入失敗",
+        error.response?.data?.message || "請稍後再試",
+        "error",
+      );
     }
   };
 
-  // 其他茶具資料
-  const otherTeaSets = products.filter(
-    (product) => product.category === "茶具"
-  );
-  console.log(otherTeaSets);
+  // 3. 載入中畫面
+  if (isLoading) {
+    return (
+      <div
+        className="d-flex justify-content-center align-items-center"
+        style={{ minHeight: "80vh" }}
+      >
+        <div
+          className="spinner-border"
+          style={{ color: "#BC9C59" }}
+          role="status"
+        ></div>
+        <span className="ms-3 text-secondary">茶具系列載入中...</span>
+      </div>
+    );
+  }
 
   return (
-    <div className='product-detail-page pt-5'>
-      {/* 主商品區塊 */}
-      <section className='container py-5 my-md-4'>
-        <div className='row'>
-          {/* 左側：商品大圖 */}
-          <div className='col-12 col-lg-7 mb-5 mb-lg-0'>
-            <div
-              className='position-relative w-100 overflow-hidden shadow-sm'
-              style={{ aspectRatio: "4/3", backgroundColor: "#F9F8F6" }}
-            >
-              <img
-                src={
-                  product?.imageUrl ||
-                  "https://storage.googleapis.com/vue-course-api.appspot.com/teanation/1770727454786.jpg"
-                }
-                alt={product?.name || "蜜香紅茶"}
-                className='position-absolute top-0 start-0 w-100 h-100'
-                style={{ objectFit: "cover" }}
-              />
-            </div>
-          </div>
-
-          {/* 右側：商品資訊 */}
-          <div className='col-12 col-lg-5 ps-lg-5'>
-            <div className='text-start'>
-              {/* 商品標題與價格 */}
-              <h1
-                className='display-5 text-dark fw-bold mb-2'
-                style={{ fontFamily: "serif", letterSpacing: "2px" }}
-              >
-                {product?.tiele || "銀索流光 · 歲月獨白"}
-              </h1>
-              <h4
-                className='mb-4'
-                style={{ color: "#BC9C59", letterSpacing: "1px" }}
-              >
-                NT$ {product?.price || 450}
-              </h4>
-
-              {/* 商品描述 */}
-              <p
-                className='text-secondary small lh-lg mb-4 text-justify'
-                style={{ letterSpacing: "1px" }}
-              >
-                {product?.content ||
-                  "這組茶具不僅僅是容器，更像是一段被凝結的時光。它展現了從維多利亞時期到愛德華時期過渡的典型美學——既有巴洛克的華麗，又開始追求線條的秩序感。"}
-              </p>
-
-              {/* 購買操作區 */}
-              <div className='d-flex align-items-center gap-4'>
-                {/* 數量選擇器 */}
-                <div className='d-flex align-items-center gap-3'>
-                  <button
-                    onClick={decreaseQuantity}
-                    className='btn btn-outline-secondary rounded-circle d-flex align-items-center justify-content-center p-0'
-                    style={{
-                      width: "35px",
-                      height: "35px",
-                      border: "1px solid #D9D9D9",
-                      color: "#666",
-                    }}
-                  >
-                    -
-                  </button>
-                  <span
-                    className='fw-bold fs-5 text-center'
-                    style={{ width: "100px" }}
-                  >
-                    {quantity}
-                  </span>
-                  <button
-                    onClick={increaseQuantity}
-                    className='btn btn-outline-secondary rounded-circle d-flex align-items-center justify-content-center p-0'
-                    style={{
-                      width: "35px",
-                      height: "35px",
-                      border: "1px solid #D9D9D9",
-                      color: "#666",
-                    }}
-                  >
-                    +
-                  </button>
-                </div>
-
-                {/* 加入購物車按鈕 */}
-                <button
-                  className='btn text-secondary'
-                  style={{
-                    border: "1px solid #D9D9D9",
-                    borderRadius: "30px",
-                    padding: "8px 50px",
-                    letterSpacing: "2px",
-                    fontSize: "0.9rem",
-                    transition: "all 0.3s ease",
-                  }}
-                  onMouseEnter={(e) => {
-                    e.target.style.borderColor = "#BC9C59";
-                    e.target.style.color = "#BC9C59";
-                  }}
-                  onMouseLeave={(e) => {
-                    e.target.style.borderColor = "#D9D9D9";
-                    e.target.style.color = "#6c757d";
-                  }}
-                  onClick={() =>
-                    addToCart(product?.id || "-Om-JC4ovThJxwvnElzo")
-                  }
-                >
-                  <span className='me-2'>
-                    <img src={cart} alt='購物車' />
-                  </span>
-                  加入購物車
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
+    <div className="products-list-page pt-5">
+      {/* 頁面標題區塊 */}
+      <section className="container py-5 mt-4 text-center">
+        <h1
+          className="display-4 fw-bold mb-3"
+          style={{ fontFamily: "serif", letterSpacing: "2px" }}
+        >
+          茶具系列
+        </h1>
+        <p className="text-secondary" style={{ letterSpacing: "1px" }}>
+          Tea Canister Collection
+        </p>
+        <div
+          className="mx-auto mt-4"
+          style={{ height: "2px", backgroundColor: "#BC9C59", width: "60px" }}
+        ></div>
       </section>
 
-      {/* 推薦茶款區塊 */}
-      <section className='container py-5 my-md-4'>
-        {/* 帶有水平線的置中標題 */}
-        <div className='d-flex align-items-center justify-content-center mt-20 mb-20'>
-          <div
-            className='flex-grow-1'
-            style={{
-              height: "1px",
-              backgroundColor: "#BC9C59",
-              maxWidth: "400px",
-            }}
-          ></div>
-          <div className='text-center px-20'>
-            <span
-              className='fw-bold d-block'
-              style={{
-                color: "#BC9C59",
-                letterSpacing: "2px",
-                fontSize: "0.85rem",
-                marginBottom: "4px",
-              }}
-            >
-              推薦茶款
-            </span>
-            <h2
-              className='display-6 text-dark mb-0'
-              style={{ fontFamily: "serif", letterSpacing: "1px" }}
-            >
-              Recommendation
-            </h2>
-          </div>
-          <div
-            className='flex-grow-1'
-            style={{
-              height: "1px",
-              backgroundColor: "#BC9C59",
-              maxWidth: "400px",
-            }}
-          ></div>
-        </div>
-        <div className='row'>
-          {/* 左側：商品大圖 */}
-          <div className='col-12 col-lg-7 mb-5 mb-lg-0'>
-            <div
-              className='position-relative w-100 overflow-hidden shadow-sm'
-              style={{ aspectRatio: "4/3", backgroundColor: "#F9F8F6" }}
-            >
-              <img
-                src='https://storage.googleapis.com/vue-course-api.appspot.com/teanation/1771678751984.jpg'
-                alt='蜜香紅茶'
-                className='position-absolute top-0 start-0 w-100 h-100'
-                style={{ objectFit: "cover" }}
-              />
-            </div>
-          </div>
-
-          {/* 右側：推薦茶款資訊 */}
-          <div className='col-12 col-lg-5 ps-lg-5'>
-            <div className='text-start'>
-              {/* 推薦茶款描述 */}
-              <p
-                className='text-secondary small lh-lg mb-4 text-justify'
-                style={{ letterSpacing: "1px" }}
-              >
-                擁​有​迷人​的​琥珀色​茶湯​與​獨特​的​天然​蜜味，​而​【維多利亞 ·
-                藍​薔薇​之​詩​】這​套瓷器​ 正​是​它​的​完美​舞台。​
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 其他茶具區塊 */}
-      <section
-        className='container-fluid py-5 mt-5'
-        style={{ backgroundColor: "#FCFCFC" }}
-      >
-        {/* 帶有水平線的置中標題 */}
-        <div className='d-flex align-items-center justify-content-center mt-20 mb-20'>
-          <div
-            className='flex-grow-1'
-            style={{
-              height: "1px",
-              backgroundColor: "#BC9C59",
-              maxWidth: "400px",
-            }}
-          ></div>
-          <div className='text-center px-20'>
-            <span
-              className='fw-bold d-block'
-              style={{
-                color: "#BC9C59",
-                letterSpacing: "2px",
-                fontSize: "0.85rem",
-                marginBottom: "4px",
-              }}
-            >
-              其他茶具
-            </span>
-            <h2
-              className='display-6 text-dark mb-0'
-              style={{ fontFamily: "serif", letterSpacing: "1px" }}
-            >
-              Other Tea Sets
-            </h2>
-          </div>
-          <div
-            className='flex-grow-1'
-            style={{
-              height: "1px",
-              backgroundColor: "#BC9C59",
-              maxWidth: "400px",
-            }}
-          ></div>
-        </div>
-
-        {/* 網格卡片區 */}
-        <div className='row g-4 g-lg-5'>
-          {otherTeaSets.map((otherTeaSet) => (
-            <div
-              key={otherTeaSet.id}
-              className='col-6 col-md-3'
-              onClick={() => setId(otherTeaSet.id)}
-            >
-              <div className='product-card'>
-                {/* 卡片圖片 */}
-                <div
-                  className='w-100 mb-3 overflow-hidden bg-light'
-                  style={{ aspectRatio: "3/4" }}
+      {/* 商品列表網格 */}
+      <section className="container pb-5 mb-5">
+        <div className="row g-4">
+          {teaSet.length > 0 ? (
+            teaSet.map((tea) => (
+              <div key={tea.id} className="col-12 col-sm-6 col-lg-3">
+                <Link
+                  to={`/product/${tea.id}`}
+                  className="text-decoration-none text-dark"
                 >
-                  <img
-                    src={otherTeaSet.imageUrl}
-                    alt={otherTeaSet.title}
-                    className='w-100 h-100'
-                    style={{
-                      objectFit: "cover",
-                      transition: "transform 0.3s ease",
-                    }}
-                    onMouseEnter={(e) =>
-                      (e.target.style.transform = "scale(1.05)")
-                    }
-                    onMouseLeave={(e) =>
-                      (e.target.style.transform = "scale(1)")
-                    }
-                  />
-                </div>
+                  <div className="product-card h-100">
+                    <div
+                      className="w-100 mb-3 overflow-hidden bg-light position-relative"
+                      style={{ aspectRatio: "3/4" }}
+                    >
+                      <img
+                        src={tea.imageUrl}
+                        alt={tea.title}
+                        className="w-100 h-100 position-absolute top-0 start-0"
+                        style={{
+                          objectFit: "cover",
+                          transition: "transform 0.3s ease",
+                        }}
+                        onMouseOver={(e) =>
+                          (e.currentTarget.style.transform = "scale(1.05)")
+                        }
+                        onMouseOut={(e) =>
+                          (e.currentTarget.style.transform = "scale(1)")
+                        }
+                      />
+                    </div>
 
-                {/* 卡片文字與按鈕 */}
-                <div className='d-flex justify-content-between align-items-end text-start'>
-                  <div>
-                    <h6
-                      className='fw-bold mb-1'
-                      style={{ letterSpacing: "1px", fontSize: "0.95rem" }}
-                    >
-                      {otherTeaSet.title}
-                    </h6>
-                    <p
-                      className='mb-0 small'
-                      style={{ color: "#BC9C59", letterSpacing: "1px" }}
-                    >
-                      NT$ {otherTeaSet.price}
-                    </p>
+                    <div className="d-flex justify-content-between align-items-end px-1">
+                      <div>
+                        <h6
+                          className="fw-bold mb-1"
+                          style={{ letterSpacing: "1px" }}
+                        >
+                          {tea.title}
+                        </h6>
+                        <p
+                          className="mb-0 small"
+                          style={{ color: "#BC9C59", fontWeight: "500" }}
+                        >
+                          NT$ {tea.price}
+                        </p>
+                      </div>
+
+                      {/* 快捷加入購物車按鈕 */}
+                      <button
+                        className="btn btn-sm btn-outline-light border rounded-circle d-flex justify-content-center align-items-center bg-white"
+                        style={{ width: "35px", height: "35px" }}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          addToCart(tea.id);
+                        }}
+                      >
+                        <img
+                          src={cartIcon}
+                          alt="cart"
+                          style={{ width: "16px" }}
+                        />
+                      </button>
+                    </div>
                   </div>
-
-                  {/* 小購物袋按鈕 */}
-                  <button
-                    className='btn btn-outline-secondary rounded-circle d-flex align-items-center justify-content-center p-0'
-                    style={{
-                      width: "35px",
-                      height: "35px",
-                      border: "1px solid #D9D9D9",
-                      color: "#999",
-                      transition: "all 0.3s ease",
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.borderColor = "#BC9C59";
-                      e.currentTarget.style.color = "#BC9C59";
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.borderColor = "#D9D9D9";
-                      e.currentTarget.style.color = "#999";
-                    }}
-                  >
-                    <span style={{ fontSize: "1.1rem", marginBottom: "2px" }}>
-                      <img src={cart} alt='購物車' />
-                    </span>
-                  </button>
-                </div>
+                </Link>
               </div>
+            ))
+          ) : (
+            <div className="col-12 text-center py-5 text-secondary">
+              目前還沒有上架茶具商品喔！
             </div>
-          ))}
+          )}
         </div>
       </section>
     </div>
   );
 };
 
-export default ProductsTeaSet;
+export default ProductsTeaCan;
+
+// 用舊版的 排版

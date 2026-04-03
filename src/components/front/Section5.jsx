@@ -73,10 +73,18 @@ export default function Sec5() {
                 <div className="promise-card">
                   <p className="promise-card-title">{card.title}</p>
                   <div className="promise-body">
-                    <img className="promise-img" src={card.img} alt={card.title} />
+                    <img
+                      className="promise-img"
+                      src={card.img}
+                      alt={card.title}
+                    />
                     <div className="promise-body2">
-                      <h4 className="promise-body2-title">{card.reviewTitle}</h4>
-                      <p className="promise-body2-subtitle">{card.reviewText}</p>
+                      <h4 className="promise-body2-title">
+                        {card.reviewTitle}
+                      </h4>
+                      <p className="promise-body2-subtitle">
+                        {card.reviewText}
+                      </p>
                       <p className="promise-body2-name">{card.name}</p>
                     </div>
                   </div>

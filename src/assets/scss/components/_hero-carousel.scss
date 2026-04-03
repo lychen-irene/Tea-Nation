@@ -4,11 +4,11 @@
 .hero-carousel {
   width: 100%;
   aspect-ratio: 1920 / 1000;
+  overflow: hidden;
   margin: 0 auto;
 
   @media (max-width: 767.98px) {
     aspect-ratio: 3 / 4;
-    overflow: hidden;
     margin-top: 62px;
   }
 
