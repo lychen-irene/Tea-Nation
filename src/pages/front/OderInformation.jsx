@@ -11,7 +11,7 @@ const OderInformation = () => {
     { num: 2, labelEN: "Checkout", labelZH: "付款資訊" },
     { num: 3, labelEN: "Confirmation", labelZH: "完成結帳" },
   ];
-  const [currentStep, setCurrentStep] = useState(2);
+  const [currentStep, setCurrentStep] = useState(2); // eslint-disable-line
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
