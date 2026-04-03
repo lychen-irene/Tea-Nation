@@ -20,7 +20,7 @@ const Cart = () => {
     { num: 2, labelEN: "Checkout", labelZH: "付款資訊" },
     { num: 3, labelEN: "Confirmation", labelZH: "完成結帳" },
   ];
-  const [currentStep, setCurrentStep] = useState(1);
+  const [currentStep, setCurrentStep] = useState(1); // eslint-disable-line
 
   // 取得購物車列表
   const getCart = async () => {
@@ -42,7 +42,7 @@ const Cart = () => {
         product_id: productId,
         qty,
       };
-      const response = await axios.put(url, { data });
+      const response = await axios.put(url, { data }); // eslint-disable-line
       getCart();
     } catch (error) {
       console.log(error.response.data);
@@ -53,7 +53,7 @@ const Cart = () => {
   const deleteCart = async (cartId) => {
     try {
       const url = `${API_BASE}/api/${API_PATH}/cart/${cartId}`;
-      const response = await axios.delete(url);
+      const response = await axios.delete(url); // eslint-disable-line
       getCart();
     } catch (error) {
       console.log(error.response.data);
@@ -61,19 +61,19 @@ const Cart = () => {
   };
 
   // 清空購物車
-  const deleteCartAll = async () => {
-    try {
-      const url = `${API_BASE}/api/${API_PATH}/carts`;
-      await axios.delete(url);
-      getCart();
-    } catch (error) {
-      console.log(error.response.data);
-    }
-  };
+  // const deleteCartAll = async () => {
+  //   try {
+  //     const url = `${API_BASE}/api/${API_PATH}/carts`;
+  //     await axios.delete(url);
+  //     getCart();
+  //   } catch (error) {
+  //     console.log(error.response.data);
+  //   }
+  // };
 
   // 預設第一次進入購物車畫面時會渲染購物車資料
   useEffect(() => {
-    getCart();
+    getCart(); // eslint-disable-line
   }, []);
 
   return (
